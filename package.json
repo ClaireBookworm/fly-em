@@ -9,7 +9,7 @@
     "dev": "vinext dev",
     "build": "vinext build",
     "start": "wrangler dev --config dist/server/wrangler.json",
-    "lint": "oxlint app lib components/atlas-view.tsx components/science-plots.tsx scripts tests",
+    "lint": "oxlint app lib content components/games components/digital-sphinx.tsx components/story components/atlas-view.tsx components/embodied-explorer.tsx components/science-plots.tsx components/neuron-lab.tsx components/experimental-context.tsx components/experimental-evidence.tsx components/glossary.tsx components/observatory.tsx components/paper-guide.tsx components/simulation-playback.tsx components/theme-toggle.tsx scripts tests",
     "format": "oxfmt",
     "test": "node --experimental-strip-types --test tests/*.test.ts",
     "predev": "node scripts/build-worker.mjs",

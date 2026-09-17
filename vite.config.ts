@@ -46,9 +46,20 @@ export default defineConfig(async () => {
 
   return {
     css: { postcss: { plugins: [tailwindcss()] } },
-    server: isCodexSeatbeltSandbox
-      ? { watch: { useFsEvents: false, usePolling: true } }
-      : undefined,
+    server: {
+      watch: {
+        ...(isCodexSeatbeltSandbox
+          ? { useFsEvents: false, usePolling: true }
+          : {}),
+        // Research environments and downloaded datasets are not application source.
+        ignored: [
+          '**/work/**',
+          '**/outputs/**',
+          '**/.wrangler/**',
+          '**/dist/**',
+        ],
+      },
+    },
     plugins: [
       vinext(),
       sites(),

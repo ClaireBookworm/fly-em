@@ -3,6 +3,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { RotateCcw, Plus, Minus, Move3D } from 'lucide-react';
+import { useTheme, themeColor } from '@/lib/theme';
 import type { Atlas, Circuit, Result } from '@/lib/simulation';
 export function AtlasView({
   atlas,
@@ -25,6 +26,7 @@ export function AtlasView({
   graph: boolean;
   edges: number[][];
 }) {
+  const theme = useTheme();
   const canvas = useRef<HTMLCanvasElement>(null),
     hits = useRef<number[][]>([]),
     drag = useRef({ x: 0, y: 0, moved: false, down: false });
@@ -82,7 +84,7 @@ export function AtlasView({
       ctx.fill();
     };
     if (!graph) {
-      ctx.fillStyle = '#819b8648';
+      ctx.fillStyle = themeColor('#819b8648', theme);
       for (const p of atlas.points) {
         const q = project(p);
         ctx.fillRect(q[0], q[1], 1, 1);
@@ -101,11 +103,12 @@ export function AtlasView({
         }
         ctx.stroke();
       };
-      for (const id of atlas.backgroundIds) drawSkeleton(id, '#8da69624', 0.6);
+      for (const id of atlas.backgroundIds)
+        drawSkeleton(id, themeColor('#8da69624', theme), 0.6);
       for (const id of circuit.skeletonIds)
         drawSkeleton(id, color + 'b0', 0.85);
       const active = circuit.nodes[selected];
-      if (active) drawSkeleton(active.id, '#f5f8e9', 1.5);
+      if (active) drawSkeleton(active.id, themeColor('#f5f8e9', theme), 1.5);
       hits.current = circuit.nodes.map((n, i) => {
         if (!n.position) return [-10000, -10000, i];
         const q = project(n.position),
@@ -113,14 +116,16 @@ export function AtlasView({
         dot(
           q,
           i === selected ? 5 : 2 + a * 3,
-          i === selected ? '#ffffed' : color + (a > 0.1 ? 'ee' : '99'),
+          i === selected
+            ? themeColor('#ffffed', theme)
+            : color + (a > 0.1 ? 'ee' : '99'),
         );
         return [...q, i];
       });
-      ctx.fillStyle = '#8fa096';
+      ctx.fillStyle = themeColor('#8fa096', theme);
       ctx.font = '12px Arial';
       ctx.fillText('100 µm', 28, h - 25);
-      ctx.strokeStyle = '#8fa096';
+      ctx.strokeStyle = themeColor('#8fa096', theme);
       ctx.lineWidth = 1;
       ctx.beginPath();
       ctx.moveTo(28, h - 38);
@@ -144,7 +149,9 @@ export function AtlasView({
         const from = layout[a],
           to = layout[b];
         ctx.strokeStyle =
-          a === selected || b === selected ? color + 'bb' : '#6e907c1e';
+          a === selected || b === selected
+            ? color + 'bb'
+            : themeColor('#6e907c1e', theme);
         ctx.lineWidth =
           a === selected || b === selected
             ? Math.min(3, 0.5 + Math.log1p(weight) / 3)
@@ -163,12 +170,12 @@ export function AtlasView({
         dot(
           p,
           i === selected ? 6 : 2.5 + activity(i) * 3,
-          i === selected ? '#ffffed' : color,
+          i === selected ? themeColor('#ffffed', theme) : color,
         );
         return [...p, i];
       });
       ctx.font = '12px Arial';
-      ctx.fillStyle = '#b6c8bc';
+      ctx.fillStyle = themeColor('#b6c8bc', theme);
       ctx.textAlign = 'center';
       types.forEach((t, i) =>
         ctx.fillText(
@@ -180,6 +187,7 @@ export function AtlasView({
       ctx.textAlign = 'left';
     }
   }, [
+    theme,
     atlas,
     circuit,
     color,

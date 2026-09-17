@@ -31,6 +31,7 @@ Open http://localhost:4173. The site has no backend, paid API dependency or exte
 - PCA of time-centered simulated voltage trajectories. This is a view of model dynamics, not evidence for a biological manifold.
 - Published T4 voltage means and SEM, genuine E-PG/Delta7 calcium recordings, and the original published giant-fiber electrophysiology figure.
 - Source provenance and downloadable compact datasets directly in the interface.
+- `/embodied`: a synchronized NeuroMechFly/FlyVis observer replay with clickable visual cells; a two-input motion computation; a published five-motor-neuron reproduction beside recorded motor-unit events; and explicitly assumed NMJ/muscle/hinge interventions. See [provenance and reproduction details](docs/embodied-implementation.md).
 
 ## The actual data
 
@@ -107,3 +108,34 @@ npm run build
 Numerical checks cover rest, refractoriness, HH singularities and step convergence, finite trajectories across all models/circuits and maximum slider settings, silencing, seed reproducibility, graph invariants and recording provenance. These are software checks, not biological validation.
 
 The supported WebMCP surface exposes `configure_fly_circuit` and `read_fly_observatory` with runtime validation and lifecycle cleanup. Valid and invalid inputs were exercised in the local browser through its WebMCP interface. Broader browser visual QA was not performed.
+
+## Interactive model notebook (`/lab`)
+
+The linked notebook adds a separate deterministic teaching engine in `lib/neuron-lab.ts`. It is intentionally a small constructed circuit model, not another MaleCNS extraction. It explains LIF threshold/reset versus a resolved HH waveform, voltage-dependent gates, outward ionic currents, and conductance-based interactions in a chain, feedback loop, feedforward inhibitory motif, or two reciprocally connected E/I modules.
+
+- Both single cells receive the same injected current density (default 8 µA/cm², 20–120 ms); pulse and paired-pulse protocols are available. Equal current does not imply equal physiological parameters. C = 1 µF/cm² for both; LIF gL = C/τm with adjustable τm, and HH uses the classic 6.3°C rates with adjustable maximum Na/K conductances. All constants and rate equations are exposed on the page.
+- Duration 180 ms, dt 0.025 ms, plot sampling 0.25 ms. Playback changes the cursor through precomputed numerical results at approximately 20× slower than real time. It does not synthesize new random spikes or play experimental recordings.
+- Synaptic release increments by 1 after a 1 ms delay and decays with τexc = 5 ms or τinh = 10 ms. Conductance is 0.1 × global coupling × edge weight mS/cm², with an additional bridge multiplier for intermodule edges. Excitatory/inhibitory reversals are 0/−80 mV. There is no incoming-weight normalization. Only the first neuron receives external current.
+- The page exposes the exact toy edge list, live membrane diagrams, channel currents and gates, selected-neuron voltage and incoming conductances, a population spike raster, and JSON export including parameters, graphs, raw voltage, display voltage and event times. LIF peak markers are explicitly separate from raw membrane voltage. Membrane-flow dots indicate direction with illustrative speed; network pulses use the specified synaptic delay.
+- This engine differs from the observatory's contact-normalized, current-driven LIF/HH networks. The page states the differences rather than implying that similarly named controls generate identical runs.
+- Numerical tests check the analytic passive LIF response, display-marker separation, HH step convergence and gate bounds, sodium removal, causal synaptic delivery, isolation when the bridge is cut, and finite results at admitted extremes.
+
+The experimental cards now show sourced recording protocols and the active observatory model's assumptions. T4 starting voltage and input-resistance summaries are transcribed from the original Figure 4a XLSX: control B4:C4 and G4:H4; RNAi D4:E4 and I4:J4. They are rounded to two decimals, are mean ± SEM at t = 0, and are not estimates of fixed Vrest or passive leak resistance. The primary Methods and Extended Data Figure 9 describe recording temperature (21–23°C), acquisition (10 kHz), analysis (1 kHz), and repeated-trial resistance measurement. GF methods specify 10 kHz low-pass filtering, 40 kHz digitization, and a 150 ms response window. Heading timestamps come from the released MAT file and author analysis; the 10 kHz trigger clock is distinguished from the ~6.1 Hz volume rate.
+
+The comparison guide requires matched cell identity, input protocol, observation modality and sampling, fitting/training trials separated from held-out validation, and appropriate baseline/perturbation controls. There is no biological-validation score. The T4 knockdown switch changes only the measured condition and does not implicitly perturb the model.
+
+The notebook also registers `configure_neuron_lab` and `read_neuron_lab`. Their schemas, valid updates, read-back, rejection of invalid configuration/read inputs, and unchanged state after rejection were verified through the in-app browser’s WebMCP interface. Broader visual browser QA was not performed.
+
+## Appearance
+
+Both routes default to a warm cream light theme. The header toggle restores the original dark theme; the choice is stored locally under `fly-em-theme` and shared across tabs on the same origin. Plot colors, calcium heatmaps, anatomical canvases, circuit diagrams and selection highlights adapt to the theme without changing simulation results. The saved preference is applied before first paint.
+
+## Guided lesson and playback
+
+`/` and `/explore` contain the compact connectome lab. `/learn` begins with biological recordings, defines the emulation challenge, builds an editable membrane equation and input-timing experiment, explores HH channel dynamics, compares both models with paired Allen current/voltage trials, and then connects cells. `/lab` retains the detailed model notebook and exports. The lesson is implemented in `components/story/neuron-story.tsx` and its experiment components, with supporting circuit copy in `content/neuron-story.ts`; the three paper summaries are in `content/papers.ts`. The reading face is locally hosted Source Serif 4, with Inter for interface text and headings; font licenses are in `public/fonts/`.
+
+Connectome playback reveals the computed trace and population activity up to the cursor. The cause diagram shows the three strongest retained input sources; all retained inputs enter the simulation. Cell flashes use detected model spike times, and connection brightness uses the actual release state. The graded model uses continuous release without spikes. There is no invented axonal transit delay in this original circuit engine.
+
+`Result.rawVoltage` separates physical model state from the original LIF display markers. `Result.diagnostics` samples external, synaptic and intrinsic contributions to dV/dt in mV/ms, plus their sum, release state and hold state (0 = free, 1 = LIF refractory, 2 = silenced). These are instantaneous equation terms sampled every millisecond, not a finite-difference estimate; reset jumps are separate. Tests check the analytic passive solution, contribution balance, held states and agreement of synaptic terms with the implemented normalized weights.
+
+The `/learn` recording sources, transformations and comparison assumptions are documented in [the lesson notes](docs/learn-redesign-notes.md). The Allen mouse-cell comparison is unfitted; the cat nerve response and human scalp EEG are separate preparations. Local JSON assets retain attribution and reuse conditions.

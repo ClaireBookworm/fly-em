@@ -2,6 +2,7 @@
 /* oxlint-disable jsx-a11y/prefer-tag-over-role, jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events */
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import { useTheme, themeColor } from '@/lib/theme';
 import type { Result } from '@/lib/simulation';
 export interface Line {
   label: string;
@@ -16,6 +17,9 @@ export function TracePlot({
   timeUnit = 'ms',
   cursor,
   height = 210,
+  yDomain,
+  reference,
+  revealTo,
 }: {
   time: number[];
   lines: Line[];
@@ -23,7 +27,15 @@ export function TracePlot({
   timeUnit?: string;
   cursor?: number;
   height?: number;
+  yDomain?: [number, number];
+  revealTo?: number;
+  reference?: { value: number; label: string };
 }) {
+  const theme = useTheme();
+  lines = lines.map((line) => ({
+    ...line,
+    color: themeColor(line.color, theme),
+  }));
   const [hover, setHover] = useState<number | null>(null);
   if (!time.length || !lines.length) return null;
   const W = 640,
@@ -40,6 +52,7 @@ export function TracePlot({
   const pad = Math.max((high - low) * 0.12, 0.05);
   low -= pad;
   high += pad;
+  if (yDomain) [low, high] = yDomain;
   const x = (i: number) =>
       left +
       ((time[i] - time[0]) / (time[time.length - 1] - time[0] || 1)) *
@@ -59,7 +72,10 @@ export function TracePlot({
           setHover(
             Math.max(
               0,
-              Math.min(time.length - 1, Math.round(frac * (time.length - 1))),
+              Math.min(
+                revealTo ?? time.length - 1,
+                Math.round(frac * (time.length - 1)),
+              ),
             ),
           );
         }}
@@ -74,7 +90,7 @@ export function TracePlot({
                 y1={y(val)}
                 x2={W - right}
                 y2={y(val)}
-                stroke="#304136"
+                stroke={themeColor('#304136', theme)}
                 strokeDasharray="3 5"
               />
               <text x={left - 8} y={y(val) + 4} textAnchor="end">
@@ -97,6 +113,26 @@ export function TracePlot({
         <text x={W - 7} y={H - 12} textAnchor="end">
           {timeUnit}
         </text>
+        {reference && (
+          <g>
+            <line
+              x1={left}
+              x2={W - right}
+              y1={y(reference.value)}
+              y2={y(reference.value)}
+              stroke={themeColor('#edae7c', theme)}
+              strokeDasharray="6 5"
+            />
+            <text
+              x={W - right - 5}
+              y={y(reference.value) - 6}
+              textAnchor="end"
+              fill={themeColor('#edae7c', theme)}
+            >
+              {reference.label}
+            </text>
+          </g>
+        )}
         {lines.map((l) => (
           <g key={l.label}>
             {l.sem && (
@@ -119,8 +155,17 @@ export function TracePlot({
                 fill={l.color + '20'}
               />
             )}
+            {revealTo != null && (
+              <circle
+                cx={x(revealTo)}
+                cy={y(l.values[revealTo])}
+                r="3"
+                fill={l.color}
+              />
+            )}
             <path
               d={l.values
+                .slice(0, revealTo == null ? undefined : revealTo + 1)
                 .map(
                   (v, i) =>
                     `${i ? 'L' : 'M'}${x(i).toFixed(2)},${y(v).toFixed(2)}`,
@@ -138,7 +183,7 @@ export function TracePlot({
             x2={x(focus)}
             y1={top}
             y2={H - bottom}
-            stroke="#f2f6e780"
+            stroke={themeColor('#f2f6e780', theme)}
           />
         )}
       </svg>
@@ -167,8 +212,10 @@ export function Heatmap({
   timeUnit = 'ms',
   cursor,
   onSelect,
+  reveal = false,
 }: {
   rows: number[][];
+  reveal?: boolean;
   label: string;
   color?: string;
   range?: number[];
@@ -177,6 +224,8 @@ export function Heatmap({
   cursor?: number;
   onSelect?: (i: number) => void;
 }) {
+  const theme = useTheme();
+  color = themeColor(color, theme);
   const ref = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
     const el = ref.current;
@@ -200,16 +249,20 @@ export function Heatmap({
       r.forEach((v, i) => {
         const f = Math.max(0, Math.min(1, (v - lo) / (hi - lo || 1)));
         const at = (j * w + i) * 4;
-        for (let k = 0; k < 3; k++) im.data[at + k] = 12 + (rgb[k] - 12) * f;
+        for (let k = 0; k < 3; k++) {
+          const base = theme === 'light' ? [245, 239, 223][k] : 12;
+          im.data[at + k] = base + (rgb[k] - base) * f;
+        }
         im.data[at + 3] = 255;
       }),
     );
     ctx.putImageData(im, 0, 0);
+    if (reveal && cursor != null) ctx.clearRect(cursor + 1, 0, w, h);
     if (cursor != null) {
-      ctx.fillStyle = '#ffffff88';
+      ctx.fillStyle = themeColor('#ffffff88', theme);
       ctx.fillRect(cursor, 0, 1, h);
     }
-  }, [rows, color, range, cursor]);
+  }, [rows, color, range, cursor, theme, reveal]);
   return (
     <div className="heatmap">
       <div className="small-label">{label}</div>
@@ -244,10 +297,13 @@ export function Heatmap({
 export function Raster({
   result,
   onSelect,
+  cursor,
 }: {
   result: Result;
+  cursor?: number;
   onSelect: (i: number) => void;
 }) {
+  const theme = useTheme();
   return (
     <div className="raster">
       {result.totalSpikes === 0 && (
@@ -279,17 +335,19 @@ export function Raster({
         }}
       >
         {result.spikes.flatMap((s, i) =>
-          s.map((t, j) => (
-            <line
-              key={`${i}-${j}`}
-              x1={t}
-              x2={t}
-              y1={(i / result.spikes.length) * 120}
-              y2={((i + 1) / result.spikes.length) * 120 + 1}
-              stroke="#c2e699"
-              strokeWidth="1"
-            />
-          )),
+          s
+            .filter((t) => cursor == null || t <= result.time[cursor])
+            .map((t, j) => (
+              <line
+                key={`${i}-${j}`}
+                x1={t}
+                x2={t}
+                y1={(i / result.spikes.length) * 120}
+                y2={((i + 1) / result.spikes.length) * 120 + 1}
+                stroke={themeColor('#c2e699', theme)}
+                strokeWidth="1"
+              />
+            )),
         )}
       </svg>
       <div className="heatmap-scale">
@@ -308,6 +366,8 @@ export function Trajectory({
   color: string;
   cursor: number;
 }) {
+  const theme = useTheme();
+  color = themeColor(color, theme);
   const p = result.trajectory;
   if (!p.length) return null;
   const xs = p.map((v) => v[0]),
@@ -332,7 +392,7 @@ export function Trajectory({
         fill="none"
         strokeWidth="1.4"
       />
-      <circle cx={q[0]} cy={q[1]} r="4" fill="#fff" />
+      <circle cx={q[0]} cy={q[1]} r="4" fill={themeColor('#fff', theme)} />
       <text x="230" y="187">
         PC1 {(result.explained[0] * 100).toFixed(0)}%
       </text>

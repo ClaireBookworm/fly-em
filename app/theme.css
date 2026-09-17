@@ -1,0 +1,85 @@
+html[data-theme='light'] {
+  color-scheme: light;
+  --background: #f5efdf;
+  --foreground: #2c382b;
+  --card: #fcf8ee;
+  --primary: #4d6b35;
+  --primary-foreground: #fffdf4;
+  --secondary: #ebe4d3;
+  --muted: #ebe5d5;
+  --muted-foreground: #63705d;
+  --accent: #e3e8d2;
+  --border: #d6cfbc;
+  --input: #c6c5ae;
+  --ring: #63804a;
+  --destructive: #a34532;
+  --surface: #fcf8ee;
+  --canvas: #eee7d7;
+  --surface-cool: #f1f4e9;
+  --surface-raised: #e8e2cf;
+  --surface-accent: #e0e8ca;
+  --line: #d9d1be;
+  --line-strong: #94a080;
+  --ink-strong: #293b2a;
+  --ink-muted: #607058;
+  --ink-accent: #496a2e;
+  --ink-cool: #236c65;
+  --ink-warm: #935b30;
+  --ink-violet: #6e5483;
+  --shadow: #62543e15;
+}
+.theme-toggle {
+  min-height: 34px;
+  gap: 8px;
+  border-radius: 22px;
+  font-size: 13px;
+}
+html[data-theme='light'] .learn-page {
+  --circuit: #4d6b35;
+}
+html[data-theme='light'] .brand > span:first-child {
+  color: #5a783b;
+}
+html[data-theme='light'] .lab-cell {
+  background: #f6f1df;
+  color: #2b422c;
+}
+html[data-theme='light'] .lab-cell.firing {
+  background: #496d31;
+  color: #fffced;
+  box-shadow: 0 0 20px #5c7b3830;
+}
+html[data-theme='light'] .learn-model.hh {
+  background: #f0f3e9;
+}
+html[data-theme='light'] .experimental-figure {
+  background: #f5f4ed;
+  color: #455b45;
+}
+html[data-theme='light'] .theme-toggle {
+  background: #fcf8ee;
+  color: #425c32;
+  border-color: #cfcbb4;
+}
+html[data-theme='light'] .theme-toggle:hover {
+  background: #e8edda;
+}
+html[data-theme='light'] .learn-equation button[aria-pressed='true'] {
+  background: #e6edcf;
+  border-color: #91a575;
+  color: #385b27;
+}
+@media (max-width: 1000px) {
+  .header-right {
+    gap: 12px;
+  }
+  .learn-nav {
+    gap: 16px;
+  }
+}
+@media (max-width: 760px) {
+  .theme-toggle {
+    font-size: 12px;
+    min-height: 34px;
+  }
+}

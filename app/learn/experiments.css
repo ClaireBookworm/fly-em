@@ -1,0 +1,710 @@
+/* A connected reading surface: observation, equation, mechanism, prediction. */
+.em-lesson {
+  --em-cool: var(--ink-cool, #80d1ce);
+}
+.em-lesson .essay-opening {
+  padding-top: 48px;
+  padding-bottom: 12px;
+}
+.em-lesson .essay-opening h1 {
+  margin-top: 13px;
+  max-width: 670px;
+  font-size: clamp(30px, 4vw, 44px);
+}
+.em-lesson .essay-kicker {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+}
+.em-lesson p {
+  text-wrap: pretty;
+}
+.em-lesson a:focus-visible,
+.em-lesson button:focus-visible,
+.em-lesson [role='slider']:focus-visible {
+  outline: 2px solid var(--story-green);
+  outline-offset: 5px;
+}
+.em-lesson .em-recording-section {
+  padding: 20px 0 12px;
+}
+.em-recording-panel,
+.em-experiment,
+.em-tradeoff-table {
+  width: calc(100% - 48px);
+  max-width: 1060px;
+  margin: 26px auto;
+}
+.em-recording-panel {
+  border-top: 1px solid var(--story-line);
+  border-bottom: 1px solid var(--story-line);
+  padding: 22px 0;
+}
+.em-recording-panel [data-slot='tabs-list'],
+.em-recording-comparison [data-slot='tabs-list'] {
+  flex-wrap: wrap;
+  height: auto;
+}
+.em-recording-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(220px, 1fr);
+  gap: 35px;
+  margin-top: 25px;
+}
+.em-recording-layout > * {
+  min-width: 0;
+}
+.em-recording-layout aside {
+  border-left: 1px solid var(--story-line);
+  padding-left: 28px;
+}
+.em-recording-layout aside h3 {
+  font-size: 21px;
+  line-height: 1.4;
+  margin: 12px 0;
+}
+.em-recording-layout aside p {
+  font-size: 16px;
+  line-height: 1.65;
+  margin: 12px 0;
+}
+.em-figure-label,
+.em-experiment-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.em-data-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--story-green);
+  border-bottom: 2px solid currentColor;
+  padding-bottom: 6px;
+}
+.em-data-label.is-schematic {
+  color: var(--story-warm);
+}
+.em-signal {
+  margin: 0;
+  min-width: 0;
+}
+.em-signal figcaption {
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 8px 0;
+  color: var(--story-ink);
+}
+.em-signal svg {
+  width: 100%;
+  display: block;
+  overflow: visible;
+}
+.em-signal svg text {
+  fill: var(--story-muted);
+  font:
+    13px Arial,
+    sans-serif;
+}
+.em-legend {
+  display: flex;
+  gap: 8px 18px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: var(--story-muted);
+  padding: 2px 0 8px;
+}
+.em-electrode-label {
+  color: var(--story-muted);
+  font-size: 13px;
+}
+.em-electrode-location svg {
+  width: 100%;
+  max-width: 310px;
+  display: block;
+  margin: 10px 0 16px;
+  fill: none;
+  stroke: var(--story-green);
+  stroke-width: 1.8;
+}
+.em-electrode-location svg text {
+  stroke: none;
+  fill: var(--story-muted);
+  font:
+    12px Arial,
+    sans-serif;
+}
+.em-lesson .em-return-to-cell {
+  margin-top: 24px;
+}
+.em-lesson .em-roadmap {
+  padding-top: 30px;
+  padding-bottom: 16px;
+}
+.em-roadmap-links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 30px;
+  margin: 28px 0 12px;
+}
+.em-roadmap-links a {
+  display: flex;
+  gap: 15px;
+  padding: 20px 0;
+  border-top: 1px solid var(--story-line);
+  font-size: 16px;
+  text-decoration: none;
+}
+.em-roadmap-links b {
+  color: var(--story-warm);
+  font-size: 13px;
+  padding-top: 3px;
+  font-weight: 400;
+}
+.em-roadmap-links small {
+  display: block;
+  margin-top: 5px;
+  font-size: 14px;
+  color: var(--story-muted);
+}
+.em-roadmap-links a:hover span {
+  text-decoration: underline;
+}
+.em-experiment {
+  background: var(--surface, transparent);
+  border: 1px solid var(--story-line);
+  padding: 26px 28px;
+}
+.em-experiment-heading [data-slot='button'],
+.em-figure-label [data-slot='button'] {
+  height: auto;
+  min-height: 34px;
+  font-size: 13px;
+}
+.em-challenge {
+  font:
+    20px/1.6 'Source Serif 4',
+    serif;
+  max-width: 740px;
+  margin: 10px 0 25px;
+}
+.em-live-equation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px 15px;
+  padding: 26px 6px 20px;
+  border-top: 1px solid var(--story-line);
+  border-bottom: 1px solid var(--story-line);
+  font:
+    25px/1.4 'Source Serif 4',
+    serif;
+}
+.em-live-equation > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.em-equation-number {
+  display: inline-grid !important;
+  grid-template-columns: auto 72px;
+  grid-template-rows: 17px 36px 18px;
+  column-gap: 8px;
+  align-items: center;
+}
+.em-equation-number .em-symbol {
+  grid-column: 1;
+  grid-row: 2;
+  font:
+    24px 'Source Serif 4',
+    serif;
+}
+.em-drag-number {
+  grid-column: 2;
+  grid-row: 1;
+  text-align: center;
+  font:
+    21px/1 Arial,
+    sans-serif;
+  cursor: ew-resize;
+  touch-action: none;
+  user-select: none;
+  color: var(--em-cool);
+}
+.em-equation-number input {
+  grid-column: 2;
+  grid-row: 2;
+  width: 72px !important;
+  height: 34px !important;
+  padding: 2px 3px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  border-bottom: 2px solid var(--em-cool) !important;
+  background: var(--surface-cool) !important;
+  text-align: center;
+  font:
+    20px 'Source Serif 4',
+    serif !important;
+  color: var(--em-cool);
+  appearance: textfield;
+}
+.em-equation-number input::-webkit-inner-spin-button {
+  appearance: none;
+}
+.em-equation-number .em-unit {
+  grid-column: 2;
+  grid-row: 3;
+  text-align: center;
+  font:
+    12px Arial,
+    sans-serif;
+  color: var(--story-muted);
+  white-space: nowrap;
+}
+.em-derivative,
+.em-fixed {
+  display: inline-flex;
+  flex-direction: column;
+  text-align: center;
+}
+.em-derivative small,
+.em-fixed small {
+  font:
+    11px/1.4 Arial,
+    sans-serif;
+  color: var(--story-muted);
+  margin-top: 3px;
+}
+.em-equation-help {
+  text-align: center;
+  font-size: 13px;
+  color: var(--story-muted);
+  margin: 12px 0 16px;
+}
+.em-term-explanation {
+  background: var(--surface-cool);
+  padding: 16px 18px;
+  border-left: 3px solid var(--em-cool);
+  font-size: 16px;
+  line-height: 1.65;
+  margin: 18px 0;
+  min-height: 82px;
+}
+.em-equation-results {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.85fr) minmax(0, 1.4fr);
+  gap: 28px;
+  align-items: start;
+}
+.em-circuit svg {
+  width: 100%;
+  display: block;
+}
+.em-circuit svg text {
+  font:
+    13px Arial,
+    sans-serif;
+  fill: var(--story-muted);
+}
+.em-circuit svg .em-circuit-voltage {
+  font:
+    24px 'Source Serif 4',
+    serif;
+  fill: var(--story-ink);
+}
+.em-current-balance {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 13px;
+  padding: 0 10px;
+}
+.em-current-balance span {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+}
+.em-current-balance b {
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.em-circuit .essay-fine {
+  margin: 16px 10px 10px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.em-gap-control {
+  margin-top: 24px;
+  padding-top: 22px;
+  border-top: 1px solid var(--story-line);
+}
+.em-gap-control label {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+.em-gap-control label b {
+  font-weight: 500;
+  color: var(--story-warm);
+  font-variant-numeric: tabular-nums;
+}
+.em-range-ends {
+  display: flex;
+  justify-content: space-between;
+  color: var(--story-muted);
+  font-size: 12px;
+  margin-top: 11px;
+}
+.em-outcome {
+  display: flex;
+  gap: 12px 24px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 25px 0 6px;
+}
+.em-outcome strong {
+  font:
+    28px 'Source Serif 4',
+    serif;
+  color: var(--story-green);
+}
+.em-outcome > span {
+  font-size: 14px;
+  color: var(--story-muted);
+}
+.em-outcome button {
+  margin-left: auto;
+  font-size: 13px;
+}
+.em-lesson .em-section-after {
+  margin-top: 30px;
+}
+.em-section-after h3 {
+  font-size: 22px;
+}
+.em-hh-guide > p,
+.em-recording-comparison > p {
+  font-size: 17px;
+  line-height: 1.7;
+}
+.em-channel-equation {
+  font:
+    24px/1.8 'Source Serif 4',
+    serif;
+  padding: 12px 0 22px;
+  border-bottom: 1px solid var(--story-line);
+  margin-bottom: 20px;
+}
+.em-na {
+  color: var(--em-cool);
+}
+.em-k {
+  color: var(--story-warm);
+}
+.em-phase-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 25px;
+}
+.em-phase-buttons button {
+  font-size: 14px;
+}
+.em-phase-buttons button[aria-pressed='true'] {
+  color: var(--paper);
+  background: var(--story-green);
+  border-color: var(--story-green);
+}
+.em-phase-copy {
+  min-height: 88px;
+  margin: 18px 0;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--story-line);
+}
+.em-hh-linked {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 28px;
+  align-items: center;
+}
+.em-hh-linked > div {
+  min-width: 0;
+}
+.em-hh-linked .essay-channel-patch {
+  margin: 0;
+}
+.em-hh-linked .essay-channel-patch p {
+  font-size: 12px;
+}
+.em-gate-readout {
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+  gap: 6px;
+  margin: 18px 0;
+}
+.em-gate-readout span {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--story-line);
+  padding-bottom: 5px;
+}
+.em-gate-readout b {
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.em-hh-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 25px 45px;
+  border-top: 1px solid var(--story-line);
+  padding: 20px 0;
+}
+.em-hh-controls button {
+  font-size: 13px;
+}
+.em-tradeoff-table {
+  max-width: 900px;
+  padding: 0 12px;
+}
+.em-tradeoff-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  line-height: 1.6;
+  text-align: left;
+}
+.em-tradeoff-table caption {
+  text-align: left;
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+.em-tradeoff-table th,
+.em-tradeoff-table td {
+  padding: 16px 12px;
+  border-top: 1px solid var(--story-line);
+  vertical-align: top;
+}
+.em-tradeoff-table th {
+  font-weight: 500;
+}
+.em-tradeoff-table .essay-fine {
+  margin-top: 12px;
+}
+.em-comparison-counts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 15px 28px;
+  border-top: 1px solid var(--story-line);
+  padding: 20px 0;
+  font-size: 15px;
+}
+.em-comparison-counts strong {
+  font:
+    28px 'Source Serif 4',
+    serif;
+  margin: 0 5px;
+}
+.em-comparison-counts span:last-child {
+  font-size: 13px;
+  color: var(--story-muted);
+}
+.em-network-outcome {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  margin: 20px 0;
+  font-size: 14px;
+}
+.em-network-outcome small {
+  color: var(--story-muted);
+}
+.em-lesson .em-takeaway {
+  border-top: 1px solid var(--story-line);
+  margin-top: 25px;
+}
+.em-lesson .essay-method-note {
+  margin-top: 10px;
+  line-height: 1.7;
+}
+.em-lesson .essay-fine a,
+.em-lesson .em-recording-layout a,
+.em-lesson .em-section-after a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+@media (max-width: 800px) {
+  .em-recording-layout {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  .em-recording-layout aside {
+    border-left: 0;
+    border-top: 1px solid var(--story-line);
+    padding: 20px 0 0;
+  }
+  .em-electrode-location {
+    float: right;
+    width: 38%;
+    margin: 0 0 10px 20px;
+  }
+  .em-recording-layout aside h3 {
+    font-size: 20px;
+  }
+  .em-experiment {
+    padding: 20px;
+  }
+  .em-equation-results {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  .em-circuit {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    align-items: center;
+  }
+  .em-circuit .essay-fine {
+    grid-column: 1/-1;
+    margin: 0;
+  }
+  .em-current-balance {
+    font-size: 12px;
+    padding: 0;
+  }
+  .em-hh-linked {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  .em-hh-linked > div:first-child {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 20px;
+    align-items: center;
+  }
+  .em-hh-linked .essay-channel-patch p {
+    grid-column: 1/-1;
+  }
+  .em-phase-copy {
+    min-height: 110px;
+  }
+  .em-outcome button {
+    margin-left: 0;
+  }
+}
+@media (max-width: 520px) {
+  .em-recording-panel,
+  .em-experiment,
+  .em-tradeoff-table {
+    width: calc(100% - 32px);
+  }
+  .em-experiment {
+    padding: 18px 14px;
+  }
+  .em-roadmap-links {
+    grid-template-columns: 1fr;
+  }
+  .em-lesson .essay-opening {
+    padding-top: 30px;
+  }
+  .em-recording-panel [data-slot='tabs-trigger'],
+  .em-recording-comparison [data-slot='tabs-trigger'] {
+    font-size: 13px;
+    padding: 9px 10px;
+  }
+  .em-electrode-location {
+    float: none;
+    width: 100%;
+    margin: 0;
+    max-width: 260px;
+  }
+  .em-live-equation {
+    gap: 16px 10px;
+    font-size: 22px;
+    justify-content: flex-start;
+  }
+  .em-equation-number {
+    grid-template-columns: auto 62px;
+  }
+  .em-equation-number input {
+    width: 62px !important;
+  }
+  .em-equation-number .em-symbol {
+    font-size: 22px;
+  }
+  .em-equation-help {
+    text-align: left;
+  }
+  .em-term-explanation {
+    font-size: 15px;
+    padding: 13px;
+  }
+  .em-circuit {
+    grid-template-columns: 1fr;
+  }
+  .em-circuit svg {
+    max-width: 330px;
+    margin: auto;
+  }
+  .em-current-balance {
+    font-size: 14px;
+    padding: 0 10px;
+  }
+  .em-circuit .essay-fine {
+    margin-top: 12px;
+  }
+  .em-hh-linked > div:first-child {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .em-phase-buttons {
+    grid-template-columns: 1fr 1fr;
+  }
+  .em-phase-copy {
+    min-height: 140px;
+  }
+  .em-channel-equation {
+    font-size: 21px;
+  }
+  .em-tradeoff-table th,
+  .em-tradeoff-table td {
+    padding: 12px 5px;
+    font-size: 13px;
+  }
+  .em-hh-controls {
+    justify-content: flex-start;
+    gap: 25px;
+  }
+  .em-gap-control label {
+    font-size: 14px;
+  }
+  .em-outcome {
+    gap: 13px;
+  }
+}
+.em-lesson .essay-opening {
+  padding-top: 28px;
+}
+.em-equation-number.em-leak input,
+.em-equation-number.em-leak .em-drag-number {
+  color: var(--story-green);
+  border-bottom-color: var(--story-green) !important;
+}
+.em-equation-number.em-input input,
+.em-equation-number.em-input .em-drag-number {
+  color: var(--story-warm);
+  border-bottom-color: var(--story-warm) !important;
+}
+@media (max-width: 520px) {
+  .em-signal svg text {
+    font-size: 24px;
+  }
+}

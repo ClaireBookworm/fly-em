@@ -162,6 +162,16 @@ export function simulate(c, key, model, p, duration = 600, customDt) {
         g[i] = r[4] / (r[4] + r[5]);
     }
     const voltage = Array.from({ length: n }, () => []), spikes = Array.from({ length: n }, () => []), time = [], stim = [];
+    const rawVoltage = Array.from({ length: n }, () => []);
+    const diagnosticRows = () => Array.from({ length: n }, () => []);
+    const diagnostics = {
+        external: diagnosticRows(),
+        synaptic: diagnosticRows(),
+        intrinsic: diagnosticRows(),
+        derivative: diagnosticRows(),
+        release: diagnosticRows(),
+        held: diagnosticRows(),
+    };
     const binPeak = new Float64Array(n).fill(-100);
     for (let step = 0; step <= steps; step++) {
         const t = step * dt;
@@ -172,6 +182,41 @@ export function simulate(c, key, model, p, duration = 600, customDt) {
             time.push(Math.round(t * 100) / 100);
             let total = 0;
             for (let i = 0; i < n; i++) {
+                // Instantaneous terms in the exact implemented voltage equation, in mV/ms.
+                // These are sampled before the step; reset events are a separate rule.
+                const u = stimulus(key, c.nodes[i], i, n, t, p.direction) * p.drive;
+                const q = net[i] * p.gain, V = v[i];
+                let external, synaptic, intrinsic;
+                if (model === 'lif') {
+                    external = (24 * u) / 20;
+                    synaptic = (35 * q) / 20;
+                    intrinsic = (-65 - V) / 20;
+                }
+                else if (model === 'hh') {
+                    external = 10 * u;
+                    synaptic = 18 * q;
+                    intrinsic = -(120 * m[i] ** 3 * h[i] * (V - 50) +
+                        36 * g[i] ** 4 * (V + 77) +
+                        0.3 * (V + 54.4));
+                }
+                else {
+                    external = 0.065 * u * -V;
+                    synaptic =
+                        0.05 * Math.max(q, 0) * -V + 0.05 * Math.max(-q, 0) * (-75 - V);
+                    intrinsic = 0.05 * (-65 - V);
+                }
+                const held = c.nodes[i].type === p.silencedType
+                    ? 2
+                    : model === 'lif' && ref[i] > 0
+                        ? 1
+                        : 0;
+                rawVoltage[i].push(V);
+                diagnostics.external[i].push(external);
+                diagnostics.synaptic[i].push(synaptic);
+                diagnostics.intrinsic[i].push(intrinsic);
+                diagnostics.derivative[i].push(held ? 0 : external + synaptic + intrinsic);
+                diagnostics.release[i].push(syn[i]);
+                diagnostics.held[i].push(held);
                 voltage[i].push(model === 'lif' && binPeak[i] > 0 ? 30 : v[i]);
                 binPeak[i] = -100;
                 total += stimulus(key, c.nodes[i], i, n, t, p.direction);
@@ -228,6 +273,8 @@ export function simulate(c, key, model, p, duration = 600, customDt) {
         model,
         time,
         voltage,
+        rawVoltage,
+        diagnostics,
         spikes,
         stimulus: stim,
         edgeCount: e.length,
