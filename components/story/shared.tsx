@@ -7,6 +7,7 @@ import { ArrowDown, ArrowRight, Pause, Play } from 'lucide-react';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
+import { EditableCopy } from './copy-editor';
 
 export function StoryHeader({ part }: { part: 'connectome' | 'neuron' }) {
   const progress = useRef<HTMLDivElement>(null);
@@ -63,6 +64,7 @@ export function StoryHeader({ part }: { part: 'connectome' | 'neuron' }) {
 export function Chapter({
   title,
   paragraphs,
+  number,
   id,
 }: {
   number: string;
@@ -72,9 +74,13 @@ export function Chapter({
 }) {
   return (
     <div className="essay-copy" id={id}>
-      <h2>{title}</h2>
-      {paragraphs.map((p) => (
-        <p key={p}>{p}</p>
+      <EditableCopy as="h2" copyId={`chapter-${number}-title`}>
+        {title}
+      </EditableCopy>
+      {paragraphs.map((p, i) => (
+        <EditableCopy copyId={`chapter-${number}-paragraph-${i}`} key={p}>
+          {p}
+        </EditableCopy>
       ))}
     </div>
   );
@@ -107,8 +113,10 @@ export function StoryNext({
   return (
     <section className="essay-next">
       <span className="essay-kicker">Keep exploring</span>
-      <h2>{title}</h2>
-      <p>{text}</p>
+      <EditableCopy as="h2" copyId="next-title">
+        {title}
+      </EditableCopy>
+      <EditableCopy copyId="next-text">{text}</EditableCopy>
       <Link href={href}>
         {label}
         <ArrowRight size={22} />

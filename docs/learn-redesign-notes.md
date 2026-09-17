@@ -84,3 +84,11 @@ This is a verified paired-data candidate, not yet a fitted or validated model/re
 Data and transformation metadata are bundled in `public/data/learn/`. Regenerate with `python3 scripts/export-learn-recordings.py <allen.nwb> <S001R01.edf> <compound.data.mat>` using NumPy and `h5dump`.
 
 A later round could fit parameters on training sweeps and evaluate held-out sweeps. The present page intentionally makes no fitted-model or universal compute-ratio claim.
+
+## Visual and wording revision
+
+The opening now presents a scroll-linked, manually rotatable 3D projection of an actual simplified MaleCNS E-PG skeleton. XYZ geometry is retained; depth affects line color. The opening explicitly separates anatomy from physiological response and then leads to the experimental recordings. Rotation is also available through buttons, and chapter navigation respects reduced-motion preference.
+
+The recording panel includes credited CA1 patch-clamp microscopy from Wikimedia Commons (see `public/images/learn/ATTRIBUTION.md`), distinct from the Allen visual-cortex recording. The electrical schematic remains available in the image disclosure.
+
+“Edit wording” enables a temporary local drafting mode. Headings and narrative paragraphs become selectable; the side panel changes plain text only. Browser storage `fly-em-learn-copy-v1` retains changes on that origin, and Download edits exports JSON containing each passage's stable ID, original text, and replacement. It does not update the published source or other visitors' text. Citations and live simulation controls continue to work outside editing mode. Restore this passage discards one override. Storage failures explicitly request a download. Draft changes were verified across navigation and restoration in the browser.

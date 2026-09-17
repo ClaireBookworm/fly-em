@@ -1,0 +1,623 @@
+/* A field notebook: luminous anatomy, editorial paper, and working instruments. */
+.neuron-prologue {
+  height: 270svh;
+  background: #102b27;
+  color: #f4edda;
+  position: relative;
+  margin: 0 0 100px;
+}
+.prologue-stage {
+  height: calc(100svh - 64px);
+  min-height: 580px;
+  position: sticky;
+  top: 64px;
+  overflow: hidden;
+  max-width: 1600px;
+  margin: auto;
+}
+.prologue-topline,
+.prologue-bottomline {
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font:
+    12px/1.4 Inter,
+    sans-serif;
+  letter-spacing: 0.13em;
+  color: #acbdb0;
+  z-index: 2;
+}
+.prologue-topline {
+  top: 26px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #6b8c7455;
+}
+.prologue-bottomline {
+  bottom: 22px;
+}
+.prologue-art {
+  position: absolute;
+  left: 38%;
+  right: 0;
+  top: 45px;
+  bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.prologue-art svg {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  cursor: grab;
+  touch-action: pan-y;
+}
+.prologue-art svg:active {
+  cursor: grabbing;
+}
+.prologue-art-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin: 0 8%;
+  font:
+    12px/1.7 Inter,
+    sans-serif;
+  letter-spacing: 0.08em;
+  color: #d6d6b8;
+}
+.prologue-art-footer small {
+  font-size: 11px;
+  letter-spacing: 0;
+  color: #acbdb0;
+}
+.prologue-art-footer button {
+  border: 1px solid #6b8c7480;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  font-size: 23px;
+  margin-left: 8px;
+  cursor: pointer;
+}
+.prologue-copy {
+  position: absolute;
+  z-index: 1;
+  left: 7%;
+  top: 20%;
+  width: 36%;
+  max-width: 520px;
+}
+.prologue-count {
+  font:
+    italic 35px/1 'Source Serif 4',
+    serif;
+  color: #e9b387;
+}
+.prologue-count small {
+  font:
+    12px Inter,
+    sans-serif;
+  color: #acbdb0;
+}
+.em-lesson .prologue-copy h1,
+.em-lesson .prologue-copy h2 {
+  font:
+    400 clamp(36px, 4.6vw, 68px)/1.05 'Source Serif 4',
+    serif;
+  letter-spacing: -0.045em;
+  margin: 25px 0;
+  color: #f4edda;
+}
+.em-lesson .prologue-copy p {
+  font:
+    18px/1.6 Inter,
+    sans-serif;
+  color: #c4d0c2;
+  max-width: 390px;
+}
+.prologue-progress {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+}
+.prologue-progress button {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: #e9b387;
+  font-size: 11px;
+  cursor: pointer;
+  min-height: 30px;
+}
+.prologue-progress span {
+  display: block;
+  width: 28px;
+  height: 2px;
+  background: #60766c;
+}
+.prologue-progress [aria-current] span {
+  width: 64px;
+  background: #e9b387;
+}
+.prologue-scroll {
+  display: inline-block;
+  margin-top: 20px;
+  color: #f4edda;
+  font-size: 14px;
+  text-decoration: none;
+}
+.prologue-loading {
+  padding: 100px;
+  color: #c4d0c2;
+}
+.em-lesson .essay-copy h2 {
+  font:
+    400 clamp(32px, 3.6vw, 48px)/1.13 'Source Serif 4',
+    serif;
+  letter-spacing: -0.03em;
+}
+.em-lesson .essay-copy h3 {
+  font:
+    400 30px/1.2 'Source Serif 4',
+    serif;
+}
+.em-lesson .essay-kicker {
+  color: var(--story-warm);
+  font-weight: 650;
+  letter-spacing: 0.15em;
+}
+.em-lesson .em-recording-section {
+  padding-top: 0;
+}
+.em-recording-panel {
+  border: 0;
+  padding: 30px;
+  background: var(--surface);
+  box-shadow: 0 2px 0 var(--story-line);
+  position: relative;
+  max-width: 1180px;
+}
+.em-recording-panel:before {
+  content: '01 / OBSERVE';
+  display: block;
+  color: var(--story-warm);
+  font:
+    12px Inter,
+    sans-serif;
+  letter-spacing: 0.14em;
+  margin-bottom: 25px;
+}
+.em-recording-layout {
+  grid-template-columns: minmax(0, 1.55fr) minmax(260px, 1fr);
+  gap: 38px;
+}
+.em-recording-layout aside {
+  border-left: 0;
+  padding: 0;
+}
+.em-microscopy {
+  margin: 0 0 24px;
+  background: #152320;
+  color: #eee9d9;
+  padding: 14px;
+}
+.em-photo-kicker {
+  font:
+    11px Inter,
+    sans-serif;
+  letter-spacing: 0.15em;
+  color: #d7b28a;
+  display: block;
+  margin-bottom: 12px;
+}
+.em-microscopy img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.em-microscopy figcaption {
+  font:
+    13px/1.6 Inter,
+    sans-serif;
+  padding: 12px 0;
+  color: #d6d9cc;
+}
+.em-microscopy details {
+  font-size: 12px;
+  color: #afc7b8;
+}
+.em-microscopy summary {
+  cursor: pointer;
+}
+.em-recording-layout .em-microscopy p {
+  font:
+    12px/1.6 Inter,
+    sans-serif;
+}
+.em-microscopy a {
+  color: inherit !important;
+}
+.em-roadmap {
+  position: relative;
+  margin-top: 90px !important;
+}
+.em-roadmap-links {
+  border-top: 3px solid var(--story-warm);
+  padding-top: 15px;
+}
+.em-roadmap-links b {
+  font:
+    italic 34px 'Source Serif 4',
+    serif;
+  color: var(--story-warm);
+}
+.em-lesson .essay-chapter {
+  margin-top: 100px;
+}
+.em-experiment {
+  position: relative;
+  border: 0;
+  border-top: 4px solid var(--story-warm);
+  box-shadow: 0 12px 40px #162c2110;
+  padding: 34px 36px;
+  max-width: 1180px;
+}
+.em-experiment-heading {
+  padding-bottom: 17px;
+  border-bottom: 1px solid var(--story-line);
+}
+.em-live-equation {
+  background: color-mix(in srgb, var(--story-green) 7%, transparent);
+  border: 0;
+  margin: 0 -10px;
+  padding: 36px 12px;
+}
+.em-challenge {
+  font-size: 24px;
+  line-height: 1.45;
+}
+.em-term-explanation {
+  border: 0;
+  border-left: 3px solid var(--em-cool);
+  background: transparent;
+}
+.em-outcome strong {
+  font:
+    italic 32px 'Source Serif 4',
+    serif;
+  color: var(--story-warm);
+}
+.em-tradeoff-table {
+  border-top: 3px solid var(--story-green);
+}
+.em-lesson #channels {
+  padding-top: 45px;
+  padding-bottom: 35px;
+  background: color-mix(in srgb, var(--story-green) 5%, transparent);
+}
+/* Draft editing is intentionally local and visually separate from the lesson. */
+.copy-toolbar {
+  position: fixed;
+  bottom: 18px;
+  left: 20px;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid #617365;
+  background: #fff9e9;
+  color: #18392e;
+  border-radius: 8px;
+  box-shadow: 0 4px 22px #0002;
+  font:
+    13px Inter,
+    sans-serif;
+}
+.copy-toolbar button,
+.copy-desk button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  cursor: pointer;
+  padding: 7px 10px;
+  border-radius: 4px;
+}
+.copy-toolbar button:hover,
+.copy-desk button:hover {
+  background: #dce6d8;
+}
+.copy-toolbar button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.copy-toolbar span {
+  font-size: 11px;
+  color: #617365;
+  border-left: 1px solid #bbc4af;
+  padding-left: 8px;
+}
+.copy-editing [data-copy-id] {
+  outline: 1px dashed #c47b48;
+  outline-offset: 6px;
+  cursor: text;
+}
+.copy-editing [data-copy-id]:hover,
+.copy-editing [data-copy-id]:focus-visible {
+  outline: 2px solid #d69158;
+  background: #d6915815;
+}
+.copy-desk {
+  position: fixed;
+  z-index: 65;
+  right: 16px;
+  top: 80px;
+  width: 340px;
+  max-height: calc(100dvh - 160px);
+  overflow: auto;
+  background: #fff9e9;
+  color: #18392e;
+  border: 1px solid #b4bba7;
+  border-radius: 10px;
+  padding: 22px;
+  box-shadow: 0 8px 50px #0003;
+  font:
+    14px/1.6 Inter,
+    sans-serif;
+}
+.copy-desk-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #637b67;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+}
+.copy-desk h2 {
+  font:
+    30px/1.15 'Source Serif 4',
+    serif;
+  margin: 18px 0;
+}
+.copy-desk p {
+  margin: 14px 0;
+}
+.copy-desk label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.copy-desk textarea {
+  display: block;
+  width: 100%;
+  min-height: 200px;
+  resize: vertical;
+  background: #fffef7;
+  border: 1px solid #859886;
+  border-radius: 4px;
+  padding: 12px;
+  color: #16392d;
+  font:
+    16px/1.6 'Source Serif 4',
+    serif;
+}
+.copy-local-note {
+  font-size: 12px;
+  color: #617365;
+}
+.copy-restore {
+  font-size: 12px;
+  margin-top: 10px;
+}
+.copy-empty {
+  border: 1px dashed #b4bba7;
+  padding: 28px 15px;
+  margin: 22px 0;
+  color: #637b67;
+}
+[data-copy-id] {
+  white-space: pre-line;
+}
+@media (min-width: 1000px) {
+  .copy-editing {
+    padding-right: 365px;
+  }
+  .copy-editing .prologue-copy {
+    width: 43%;
+  }
+  .copy-editing .prologue-art {
+    left: 43%;
+  }
+}
+@media (max-width: 800px) {
+  .neuron-prologue {
+    height: 245svh;
+    margin-bottom: 65px;
+  }
+  .prologue-stage {
+    top: 60px;
+    height: calc(100svh - 60px);
+    min-height: 610px;
+  }
+  .prologue-copy {
+    top: 80px;
+    left: 7%;
+    width: 65%;
+    max-width: 460px;
+  }
+  .em-lesson .prologue-copy h1,
+  .em-lesson .prologue-copy h2 {
+    font-size: 44px;
+    margin: 15px 0;
+  }
+  .em-lesson .prologue-copy p {
+    font-size: 16px;
+    max-width: 390px;
+  }
+  .prologue-art {
+    top: 260px;
+    left: 25%;
+    right: -15%;
+    bottom: 45px;
+    opacity: 0.8;
+  }
+  .prologue-art-footer {
+    margin-right: 20%;
+    font-size: 10px;
+  }
+  .prologue-art-footer small {
+    display: none;
+  }
+  .prologue-topline {
+    font-size: 10px;
+  }
+  .prologue-bottomline {
+    font-size: 9px;
+  }
+  .prologue-progress {
+    margin-top: 15px;
+  }
+  .prologue-scroll {
+    margin-top: 7px;
+  }
+  .prologue-art svg {
+    min-height: 220px;
+  }
+  .em-recording-layout {
+    grid-template-columns: 1fr;
+  }
+  .em-recording-layout aside {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 22px;
+  }
+  .em-recording-layout aside .em-microscopy {
+    grid-row: span 3;
+  }
+  .em-experiment {
+    padding: 24px;
+  }
+  .copy-desk {
+    width: calc(100% - 24px);
+    right: 12px;
+    top: auto;
+    bottom: 78px;
+    max-height: 43dvh;
+    padding: 16px;
+  }
+  .copy-desk h2,
+  .copy-desk > p:not(.copy-local-note) {
+    display: none;
+  }
+  .copy-desk textarea {
+    min-height: 110px;
+  }
+  .copy-toolbar {
+    left: 12px;
+    right: 12px;
+    bottom: 10px;
+  }
+  .copy-toolbar span {
+    display: none;
+  }
+}
+@media (max-width: 520px) {
+  .prologue-stage {
+    min-height: 650px;
+  }
+  .prologue-copy {
+    width: 86%;
+    top: 66px;
+  }
+  .em-lesson .prologue-copy h1,
+  .em-lesson .prologue-copy h2 {
+    font-size: 38px;
+    max-width: 315px;
+  }
+  .prologue-count {
+    font-size: 25px;
+  }
+  .em-lesson .prologue-copy p {
+    font-size: 15px;
+    line-height: 1.5;
+    max-width: 320px;
+  }
+  .prologue-art {
+    top: 365px;
+    left: 7%;
+    right: -2%;
+    bottom: 40px;
+  }
+  .prologue-art-footer {
+    margin: 0 10px;
+  }
+  .prologue-topline {
+    left: 7%;
+    right: 7%;
+    font-size: 9px;
+  }
+  .prologue-bottomline span:last-child {
+    display: none;
+  }
+  .prologue-bottomline {
+    bottom: 13px;
+  }
+  .prologue-art-footer button {
+    height: 30px;
+    width: 30px;
+    font-size: 20px;
+  }
+  .em-recording-panel {
+    padding: 20px 16px;
+  }
+  .em-recording-layout aside {
+    display: block;
+  }
+  .em-experiment {
+    padding: 22px 16px;
+  }
+  .em-lesson .essay-copy h2 {
+    font-size: 34px;
+  }
+  .em-challenge {
+    font-size: 21px;
+  }
+  .em-lesson .essay-chapter {
+    margin-top: 65px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .neuron-prologue * {
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+}
+@media (min-width: 521px) and (max-width: 800px) {
+  .prologue-art {
+    left: 12%;
+    right: 0;
+    top: 315px;
+  }
+  .prologue-art-footer {
+    margin-right: 8%;
+  }
+}
+@media (max-width: 800px) {
+  .copy-toolbar {
+    right: auto;
+    max-width: calc(100% - 24px);
+  }
+  .prologue-art {
+    bottom: 86px;
+  }
+  .prologue-bottomline {
+    bottom: 68px;
+  }
+}
