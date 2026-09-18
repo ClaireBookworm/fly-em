@@ -1,4 +1,5 @@
 /* Local draft hydration runs after mount; edits never touch model parameters. */
+/* Markdown HTML comes only from the inline parser, with raw HTML disabled and safe URL validation. */
 /* oxlint-disable react/react-compiler, jsx-a11y/no-noninteractive-element-interactions */
 'use client';
 import {
@@ -11,6 +12,7 @@ import {
 } from 'react';
 import { Pencil, Download, X, RotateCcw, Trash2 } from 'lucide-react';
 import publishedCopy from '@/content/learn-wording.json';
+import { renderInlineMarkdown } from '@/lib/inline-markdown';
 export const publishedWording: Record<string, string> = publishedCopy;
 const storageKey = 'fly-em-learn-copy-v1';
 type Draft = Record<string, { text: string; original: string }>;
@@ -135,8 +137,14 @@ export function CopyEditor({ children }: { children: ReactNode }) {
           {selected ? (
             <>
               <label htmlFor="copy-draft">Selected passage</label>
+              <p id="copy-format-help" className="copy-format-help">
+                Use <code>*italic*</code>, <code>**bold**</code>,{' '}
+                <code>`code`</code>, or <code>[link text](https://…)</code>.
+                Formatting previews on the page.
+              </p>
               <textarea
                 id="copy-draft"
+                aria-describedby="copy-format-help"
                 value={draft[selected.id]?.text ?? selected.text}
                 onChange={(e) =>
                   setDraft((d) => ({
@@ -211,9 +219,13 @@ export function EditableCopy({
   const pick = (el: HTMLElement) =>
     context?.select({
       id: copyId,
-      text: replacement?.text ?? publishedWording[copyId] ?? el.innerText,
+      text:
+        replacement?.text ??
+        (typeof baseline === 'string' ? baseline : el.innerText),
       original:
-        publishedWording[copyId] ?? replacement?.original ?? el.innerText,
+        publishedWording[copyId] ??
+        replacement?.original ??
+        (typeof children === 'string' ? children : el.innerText),
     });
   return (
     <Tag
@@ -238,7 +250,16 @@ export function EditableCopy({
         }
       }}
     >
-      {removed ? 'Removed text · select to restore' : visible}
+      {removed ? (
+        'Removed text · select to restore'
+      ) : typeof visible === 'string' ? (
+        <span
+          className="copy-markdown"
+          dangerouslySetInnerHTML={{ __html: renderInlineMarkdown(visible) }}
+        />
+      ) : (
+        visible
+      )}
     </Tag>
   );
 }

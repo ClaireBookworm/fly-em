@@ -98,3 +98,7 @@ The recording panel includes credited CA1 patch-clamp microscopy from Wikimedia 
 Applied all 12 passages from the author's September 18 export verbatim in `content/learn-wording.json`. These now render as the published defaults, including server-rendered output. Draft hydration removes only entries that exactly match a published replacement; differing newer edits remain local and use the new published wording as their restore target.
 
 Section kickers, experiment headings, opening annotations/counter, recording badges, the microscopy label, and “Keep exploring” now use the same editor. “01 / Observe” is actual text instead of CSS-generated content. “Remove this text” (or an empty/whitespace-only replacement) removes the element in reading mode; editing mode keeps a selectable placeholder so it can be restored. Browser checks covered renaming, removal, persistence across navigation, restoration, and the longer authored headings on mobile.
+
+## Second author draft and inline Markdown
+
+Merged all 33 entries from `neuron-lesson-wording (2).json`, including five empty-text removals, while retaining the earlier published wording. Inline Markdown is parsed for published strings and local replacements: emphasis, strong emphasis, code, links, strikethrough and line breaks. The editor and downloads keep the source Markdown. Existing JSX copy retains its structure. Raw HTML is escaped, image embedding is disabled, and the parser validates link protocols. Tests cover nested emphasis, literal asterisks, code, angle brackets, line breaks and unsafe markup/links.
