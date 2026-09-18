@@ -78,7 +78,13 @@ export function useLearnRecordings() {
 function RecordingElectrode({ kind }: { kind: 'single' | 'compound' | 'eeg' }) {
   return (
     <div className="em-electrode-location">
-      <span className="em-electrode-label">Where is the electrode?</span>
+      <EditableCopy
+        as="span"
+        copyId="recording-experiments-label-1"
+        className="em-electrode-label"
+      >
+        Where is the electrode?
+      </EditableCopy>
       <svg
         viewBox="0 0 300 145"
         aria-label={
@@ -148,7 +154,13 @@ export function RecordingOpening({
   return (
     <section id="recordings" className="em-recording-section">
       <div className="essay-copy">
-        <span className="essay-kicker">Begin with the measurement</span>
+        <EditableCopy
+          as="span"
+          copyId="recording-experiments-label-2"
+          className="essay-kicker"
+        >
+          Begin with the measurement
+        </EditableCopy>
         <EditableCopy as="h2" copyId="recording-heading">
           Listen to one cell.
         </EditableCopy>
@@ -159,6 +171,13 @@ export function RecordingOpening({
         </EditableCopy>
       </div>
       <div className="em-recording-panel">
+        <EditableCopy
+          as="span"
+          copyId="recording-observe-label"
+          className="em-observe-label"
+        >
+          01 / Observe
+        </EditableCopy>
         <Tabs value={kind} onValueChange={setKind}>
           <TabsList>
             <TabsTrigger value="single">One neuron</TabsTrigger>
@@ -176,11 +195,15 @@ export function RecordingOpening({
           <div className="em-recording-layout">
             <div>
               <div className="em-figure-label">
-                <span className="em-data-label">
+                <EditableCopy
+                  as="span"
+                  copyId="recording-experiments-label-3"
+                  className="em-data-label"
+                >
                   {kind === 'compound'
                     ? 'Biological recording · averaged'
                     : 'Biological recording'}
-                </span>
+                </EditableCopy>
                 {kind === 'single' && (
                   <Button variant="outline" onClick={() => setZoom(!zoom)}>
                     {zoom ? 'See the full response' : 'Zoom into the spike'}
@@ -302,7 +325,13 @@ export function RecordingOpening({
             <aside>
               {kind === 'single' ? (
                 <figure className="em-microscopy">
-                  <span className="em-photo-kicker">AT THE ELECTRODE TIP</span>
+                  <EditableCopy
+                    as="span"
+                    copyId="recording-experiments-label-4"
+                    className="em-photo-kicker"
+                  >
+                    AT THE ELECTRODE TIP
+                  </EditableCopy>
                   <a
                     href="/images/learn/whole-cell-patch-clamp.jpg"
                     target="_blank"
@@ -436,9 +465,13 @@ export function RecordingComparison({ data }: { data: AllenRecording | null }) {
   return (
     <div className="em-experiment em-recording-comparison">
       <div className="em-experiment-heading">
-        <span className="essay-kicker">
+        <EditableCopy
+          as="span"
+          copyId="recording-experiments-label-5"
+          className="essay-kicker"
+        >
           Experiment 03 · replay a real input
-        </span>
+        </EditableCopy>
         <Tabs value={model} onValueChange={(v) => setModel(v as 'lif' | 'hh')}>
           <TabsList>
             <TabsTrigger value="lif">LIF</TabsTrigger>

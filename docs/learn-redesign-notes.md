@@ -92,3 +92,9 @@ The opening now presents a scroll-linked, manually rotatable 3D projection of an
 The recording panel includes credited CA1 patch-clamp microscopy from Wikimedia Commons (see `public/images/learn/ATTRIBUTION.md`), distinct from the Allen visual-cortex recording. The electrical schematic remains available in the image disclosure.
 
 “Edit wording” enables a temporary local drafting mode. Headings and narrative paragraphs become selectable; the side panel changes plain text only. Browser storage `fly-em-learn-copy-v1` retains changes on that origin, and Download edits exports JSON containing each passage's stable ID, original text, and replacement. It does not update the published source or other visitors' text. Citations and live simulation controls continue to work outside editing mode. Restore this passage discards one override. Storage failures explicitly request a download. Draft changes were verified across navigation and restoration in the browser.
+
+## Applied author draft and removable labels
+
+Applied all 12 passages from the author's September 18 export verbatim in `content/learn-wording.json`. These now render as the published defaults, including server-rendered output. Draft hydration removes only entries that exactly match a published replacement; differing newer edits remain local and use the new published wording as their restore target.
+
+Section kickers, experiment headings, opening annotations/counter, recording badges, the microscopy label, and “Keep exploring” now use the same editor. “01 / Observe” is actual text instead of CSS-generated content. “Remove this text” (or an empty/whitespace-only replacement) removes the element in reading mode; editing mode keeps a selectable placeholder so it can be restored. Browser checks covered renaming, removal, persistence across navigation, restoration, and the longer authored headings on mobile.

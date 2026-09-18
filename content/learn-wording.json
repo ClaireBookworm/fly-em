@@ -1,0 +1,14 @@
+{
+  "prologue-title-0": "What does it take to emulate just one neuron?",
+  "prologue-body-0": "Before we try to emulate the entire nervous system, let's just try to understand how we can model a singular neuron & its dynamics.",
+  "prologue-title-1": "Just knowing the shape/morphology isn't enough.",
+  "prologue-body-1": "A reconstruction tells us where the branches go, but doesn’t tell us how the membrane responds, which channels are active, or when this cell will fire.",
+  "prologue-title-2": "Beyond form, we get function.",
+  "prologue-body-2": "We can first give a cell a known input and measure its response. If a model can reproduce these dynamics, we've gotten much closer to simulation. In this explainable, we're going to try to build that!",
+  "recording-heading": "Single-cell dynamics",
+  "recording-introduction": "There have been a ton of experiments on single-neuron current injections and resultant voltage recording. As you can see in the graph, the we get an 'action potential' (or spike) as a response. This is our starting point!",
+  "recording-single-title": "Experimental results:",
+  "lesson-1": "What exactly are we trying to reproduce?",
+  "lesson-2": "Here, emulating means building a model that predicts a chosen response to an input + predict forward in time given a current state. A big part of modeling complex systems is deciding what types of data to keep, determining parameters, and using modeling equations through time... and comparing this with biological results.  A useful model might predict when a neuron fires without reproducing every detail inside it.",
+  "lesson-3": "That leaves a tradeoff: more mechanisms mean more quantities to estimate and update, maybe requiring more compute or data that is impossible to collect at scale. A simpler model costs less to run, but can leave out a behavior we care about and not give us a 'real' emulation. The experiment decides whether those omissions matter."
+}

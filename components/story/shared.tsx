@@ -112,7 +112,9 @@ export function StoryNext({
 }) {
   return (
     <section className="essay-next">
-      <span className="essay-kicker">Keep exploring</span>
+      <EditableCopy as="span" copyId="shared-label-1" className="essay-kicker">
+        Keep exploring
+      </EditableCopy>
       <EditableCopy as="h2" copyId="next-title">
         {title}
       </EditableCopy>

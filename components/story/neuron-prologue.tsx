@@ -3,7 +3,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import type { Atlas } from '@/lib/simulation';
-import { EditableCopy } from './copy-editor';
+import { EditableCopy, publishedWording } from './copy-editor';
 const passages = [
   {
     title: 'What would it take to emulate this?',
@@ -96,8 +96,12 @@ export function NeuronPrologue() {
     >
       <div className="prologue-stage">
         <div className="prologue-topline">
-          <span>FIELD NOTES / 001</span>
-          <span>FROM NEURON TO EMULATION</span>
+          <EditableCopy as="span" copyId="prologue-field-note">
+            FIELD NOTES / 001
+          </EditableCopy>
+          <EditableCopy as="span" copyId="prologue-topic">
+            FROM NEURON TO EMULATION
+          </EditableCopy>
         </div>
         <div className="prologue-art">
           {cell ? (
@@ -165,7 +169,9 @@ export function NeuronPrologue() {
           )}
           <div className="prologue-art-footer">
             <span>
-              E-PG / FLY CONNECTOME
+              <EditableCopy as="span" copyId="prologue-arbor-label">
+                E-PG / FLY CONNECTOME
+              </EditableCopy>
               <br />
               <small>
                 {cell
@@ -190,10 +196,14 @@ export function NeuronPrologue() {
           </div>
         </div>
         <div className="prologue-copy">
-          <span className="prologue-count">
+          <EditableCopy
+            as="span"
+            copyId="prologue-chapter-counter"
+            className="prologue-count"
+          >
             0{stage + 1}
             <small> / 03</small>
-          </span>
+          </EditableCopy>
           {passages.map((p, i) => (
             <div key={i} hidden={stage !== i}>
               <EditableCopy
@@ -211,7 +221,7 @@ export function NeuronPrologue() {
             {passages.map((p, i) => (
               <button
                 key={i}
-                aria-label={`Opening: ${p.title}`}
+                aria-label={`Opening: ${publishedWording[`prologue-title-${i}`] ?? p.title}`}
                 aria-current={stage === i ? 'step' : undefined}
                 onClick={() => {
                   const el = root.current;
@@ -238,8 +248,12 @@ export function NeuronPrologue() {
           </a>
         </div>
         <div className="prologue-bottomline">
-          <span>DRAG THE CELL TO ROTATE</span>
-          <span>ANATOMY ≠ ACTIVITY</span>
+          <EditableCopy as="span" copyId="prologue-rotate-hint">
+            DRAG THE CELL TO ROTATE
+          </EditableCopy>
+          <EditableCopy as="span" copyId="prologue-anatomy-note">
+            ANATOMY ≠ ACTIVITY
+          </EditableCopy>
         </div>
       </div>
     </section>

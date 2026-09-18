@@ -9,7 +9,9 @@ import {
   type HTMLAttributes,
   type ReactNode,
 } from 'react';
-import { Pencil, Download, X, RotateCcw } from 'lucide-react';
+import { Pencil, Download, X, RotateCcw, Trash2 } from 'lucide-react';
+import publishedCopy from '@/content/learn-wording.json';
+export const publishedWording: Record<string, string> = publishedCopy;
 const storageKey = 'fly-em-learn-copy-v1';
 type Draft = Record<string, { text: string; original: string }>;
 type Selection = { id: string; text: string; original: string };
@@ -30,13 +32,24 @@ export function CopyEditor({ children }: { children: ReactNode }) {
       if (saved && typeof saved === 'object' && !Array.isArray(saved))
         setDraft(
           Object.fromEntries(
-            Object.entries(saved).filter(
-              ([, v]) =>
-                v &&
-                typeof v === 'object' &&
-                typeof (v as Selection).text === 'string' &&
-                typeof (v as Selection).original === 'string',
-            ),
+            Object.entries(saved)
+              .filter(
+                ([, v]) =>
+                  v &&
+                  typeof v === 'object' &&
+                  typeof (v as Selection).text === 'string' &&
+                  typeof (v as Selection).original === 'string',
+              )
+              .filter(
+                ([id, v]) => (v as Selection).text !== publishedWording[id],
+              )
+              .map(([id, v]) => [
+                id,
+                {
+                  ...(v as Selection),
+                  original: publishedWording[id] ?? (v as Selection).original,
+                },
+              ]),
           ) as Draft,
         );
     } catch {
@@ -116,8 +129,8 @@ export function CopyEditor({ children }: { children: ReactNode }) {
           </div>
           <h2>Make it sound like you.</h2>
           <p>
-            Click a highlighted heading or paragraph, then rewrite it here. Your
-            changes appear on the page as you type.
+            Click any highlighted text, including small labels. Rewrite it here,
+            or remove it. Changes appear on the page as you type.
           </p>
           {selected ? (
             <>
@@ -136,6 +149,21 @@ export function CopyEditor({ children }: { children: ReactNode }) {
                 }
               />
               <button
+                className="copy-remove"
+                onClick={() =>
+                  setDraft((d) => ({
+                    ...d,
+                    [selected.id]: {
+                      text: '',
+                      original: d[selected.id]?.original ?? selected.original,
+                    },
+                  }))
+                }
+              >
+                <Trash2 size={15} />
+                Remove this text
+              </button>
+              <button
                 className="copy-restore"
                 onClick={() => {
                   setDraft((d) => {
@@ -147,7 +175,7 @@ export function CopyEditor({ children }: { children: ReactNode }) {
                 }}
               >
                 <RotateCcw size={15} />
-                Restore this passage
+                Restore published wording
               </button>
             </>
           ) : (
@@ -175,17 +203,26 @@ export function EditableCopy({
   children: ReactNode;
 }) {
   const context = useContext(CopyContext),
-    replacement = context?.draft[copyId];
+    replacement = context?.draft[copyId],
+    baseline = publishedWording[copyId] ?? children,
+    visible = replacement ? replacement.text : baseline,
+    removed = typeof visible === 'string' && visible.trim() === '';
+  if (removed && !context?.editing) return null;
   const pick = (el: HTMLElement) =>
     context?.select({
       id: copyId,
-      text: replacement?.text ?? el.innerText,
-      original: replacement?.original ?? el.innerText,
+      text: replacement?.text ?? publishedWording[copyId] ?? el.innerText,
+      original:
+        publishedWording[copyId] ?? replacement?.original ?? el.innerText,
     });
   return (
     <Tag
       {...props}
       data-copy-id={copyId}
+      data-copy-removed={removed || undefined}
+      className={[props.className, removed ? 'copy-removed' : '']
+        .filter(Boolean)
+        .join(' ')}
       tabIndex={context?.editing ? 0 : undefined}
       onClickCapture={(e) => {
         if (context?.editing) {
@@ -201,7 +238,7 @@ export function EditableCopy({
         }
       }}
     >
-      {replacement ? replacement.text : children}
+      {removed ? 'Removed text · select to restore' : visible}
     </Tag>
   );
 }

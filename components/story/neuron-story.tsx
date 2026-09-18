@@ -408,9 +408,13 @@ export default function NeuronStory() {
               </div>
               <div className="essay-network-readout">
                 <div>
-                  <span className="essay-kicker">
+                  <EditableCopy
+                    as="span"
+                    copyId="network-following-label"
+                    className="essay-kicker"
+                  >
                     You’re following {graph.nodes[picked].name}
-                  </span>
+                  </EditableCopy>
                   <TracePlot
                     time={network.time}
                     lines={[

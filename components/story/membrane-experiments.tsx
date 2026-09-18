@@ -399,9 +399,13 @@ export function EquationExperiment() {
   return (
     <div className="em-experiment">
       <div className="em-experiment-heading">
-        <span className="essay-kicker">
+        <EditableCopy
+          as="span"
+          copyId="membrane-experiments-label-1"
+          className="essay-kicker"
+        >
           Experiment 01 · make two inputs count
-        </span>
+        </EditableCopy>
         <Button
           variant="outline"
           onClick={() => {

@@ -182,8 +182,8 @@
   position: relative;
   max-width: 1180px;
 }
-.em-recording-panel:before {
-  content: '01 / OBSERVE';
+.em-observe-label {
+  text-transform: uppercase;
   display: block;
   color: var(--story-warm);
   font:
@@ -620,4 +620,22 @@
   .prologue-bottomline {
     bottom: 68px;
   }
+}
+
+.copy-removed {
+  display: inline-block !important;
+  min-width: 100px;
+  padding: 5px 8px;
+  font:
+    12px/1.5 Inter,
+    sans-serif !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  color: #a15e30 !important;
+  background: #d6915815;
+}
+.copy-remove {
+  font-size: 12px;
+  margin-top: 10px;
+  color: #9b402c;
 }

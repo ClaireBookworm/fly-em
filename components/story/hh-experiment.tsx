@@ -70,9 +70,13 @@ export function HHExperiment() {
   return (
     <div className="em-experiment em-hh-guide">
       <div className="em-experiment-heading">
-        <span className="essay-kicker">
+        <EditableCopy
+          as="span"
+          copyId="hh-experiment-label-1"
+          className="essay-kicker"
+        >
           Experiment 02 · where the spike comes from
-        </span>
+        </EditableCopy>
         <Button
           variant="outline"
           onClick={() => update('sodium', sodium === 0 ? 120 : 0)}
