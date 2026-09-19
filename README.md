@@ -20,6 +20,13 @@ python3 -m http.server 4173 --directory dist/client
 
 Open http://localhost:4173. The site has no backend, paid API dependency or external model service. The original escape physiology figure loads from Springer Nature; its source link remains available if that host is unreachable. Numerical recordings and the sampled anatomy are bundled locally.
 
+### Deploy on Vercel
+
+Import this repository into Vercel. `vercel.json` configures the static build in
+`dist/client` and extensionless routes such as `/learn`. No API keys or
+`.openai/hosting.json` file are required. The ignored `.openai` settings and Sites
+plugins are used only when that local configuration exists.
+
 ## What is included
 
 - Orbitable, sampled whole-brain anatomy; optional ventral nerve cord context.
