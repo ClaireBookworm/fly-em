@@ -1,6 +1,5 @@
 'use client';
 import { useRef, useState } from 'react';
-import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Explain } from '@/components/games/shared';
 const paper = 'https://elifesciences.org/reviewed-preprints/111516';
@@ -135,9 +134,9 @@ export default function DigitalSphinx() {
             </p>
           )}
           {step === 4 && (
-            <Link className="sphinx-next" href="/games/wiring">
+            <a className="sphinx-next" href="/games/wiring">
               Run the wiring challenge ↗
-            </Link>
+            </a>
           )}
         </div>
       </div>

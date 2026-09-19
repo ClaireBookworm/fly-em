@@ -3,7 +3,6 @@
 /* SVG scientific plots need role=img; native form controls are wrapped by the installed component. */
 /* oxlint-disable react/react-compiler, jsx-a11y/prefer-tag-over-role */
 import { useEffect, useMemo, useRef, useState } from 'react';
-import Link from 'next/link';
 import { ArrowLeft, Pause, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
@@ -1286,11 +1285,11 @@ export default function EmbodiedExplorer() {
   return (
     <main className="embodied-page">
       <nav className="embodied-nav" aria-label="Explorable navigation">
-        <Link href="/">
+        <a href="/">
           <ArrowLeft size={14} style={{ display: 'inline' }} /> Compact lab
-        </Link>
+        </a>
         <div>
-          <Link href="/games/garden">Games</Link>
+          <a href="/games/garden">Games</a>
           <a href="#sphinx">Emulation</a>
           <a href="#vision">Visual input</a>
           <a href="#motor">Motor neurons & wings</a>
@@ -1385,9 +1384,9 @@ export default function EmbodiedExplorer() {
             page does not feed the three MaleCNS extracts.
           </p>
           <div className="embodied-controls">
-            <Link href="/?circuit=motion">Motion circuit ↗</Link>
-            <Link href="/?circuit=escape">Escape circuit ↗</Link>
-            <Link href="/?circuit=heading">Heading circuit ↗</Link>
+            <a href="/?circuit=motion">Motion circuit ↗</a>
+            <a href="/?circuit=escape">Escape circuit ↗</a>
+            <a href="/?circuit=heading">Heading circuit ↗</a>
           </div>
         </details>
       </section>

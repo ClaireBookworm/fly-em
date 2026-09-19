@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { membraneDefaults, simulateMembrane } from '@/lib/membrane-experiment';
 import { SignalPlot } from './membrane-experiments';
-import { EditableCopy } from './copy-editor';
+import { LessonCopy } from './lesson-copy';
 
 export interface RecordedSweep {
   sweep: number;
@@ -78,13 +78,13 @@ export function useLearnRecordings() {
 function RecordingElectrode({ kind }: { kind: 'single' | 'compound' | 'eeg' }) {
   return (
     <div className="em-electrode-location">
-      <EditableCopy
+      <LessonCopy
         as="span"
         copyId="recording-experiments-label-1"
         className="em-electrode-label"
       >
         Where is the electrode?
-      </EditableCopy>
+      </LessonCopy>
       <svg
         viewBox="0 0 300 145"
         aria-label={
@@ -154,30 +154,30 @@ export function RecordingOpening({
   return (
     <section id="recordings" className="em-recording-section">
       <div className="essay-copy">
-        <EditableCopy
+        <LessonCopy
           as="span"
           copyId="recording-experiments-label-2"
           className="essay-kicker"
         >
           Begin with the measurement
-        </EditableCopy>
-        <EditableCopy as="h2" copyId="recording-heading">
+        </LessonCopy>
+        <LessonCopy as="h2" copyId="recording-heading">
           Listen to one cell.
-        </EditableCopy>
-        <EditableCopy copyId="recording-introduction">
+        </LessonCopy>
+        <LessonCopy copyId="recording-introduction">
           An electrode injects current into one cell and records its voltage.
           The sharp rise and fall is an action potential—a spike. This is our
           starting point.
-        </EditableCopy>
+        </LessonCopy>
       </div>
       <div className="em-recording-panel">
-        <EditableCopy
+        <LessonCopy
           as="span"
           copyId="recording-observe-label"
           className="em-observe-label"
         >
           01 / Observe
-        </EditableCopy>
+        </LessonCopy>
         <Tabs value={kind} onValueChange={setKind}>
           <TabsList>
             <TabsTrigger value="single">One neuron</TabsTrigger>
@@ -195,7 +195,7 @@ export function RecordingOpening({
           <div className="em-recording-layout">
             <div>
               <div className="em-figure-label">
-                <EditableCopy
+                <LessonCopy
                   as="span"
                   copyId="recording-experiments-label-3"
                   className="em-data-label"
@@ -203,7 +203,7 @@ export function RecordingOpening({
                   {kind === 'compound'
                     ? 'Biological recording · averaged'
                     : 'Biological recording'}
-                </EditableCopy>
+                </LessonCopy>
                 {kind === 'single' && (
                   <Button variant="outline" onClick={() => setZoom(!zoom)}>
                     {zoom ? 'See the full response' : 'Zoom into the spike'}
@@ -325,13 +325,13 @@ export function RecordingOpening({
             <aside>
               {kind === 'single' ? (
                 <figure className="em-microscopy">
-                  <EditableCopy
+                  <LessonCopy
                     as="span"
                     copyId="recording-experiments-label-4"
                     className="em-photo-kicker"
                   >
                     AT THE ELECTRODE TIP
-                  </EditableCopy>
+                  </LessonCopy>
                   <a
                     href="/images/learn/whole-cell-patch-clamp.jpg"
                     target="_blank"
@@ -379,20 +379,20 @@ export function RecordingOpening({
               ) : (
                 <RecordingElectrode kind={kind as 'compound' | 'eeg'} />
               )}
-              <EditableCopy as="h3" copyId={`recording-${kind}-title`}>
+              <LessonCopy as="h3" copyId={`recording-${kind}-title`}>
                 {kind === 'single'
                   ? 'One cell. One voltage.'
                   : kind === 'compound'
                     ? 'Many fibers. One compound response.'
                     : 'A different view of brain activity.'}
-              </EditableCopy>
-              <EditableCopy copyId={`recording-${kind}-explanation`}>
+              </LessonCopy>
+              <LessonCopy copyId={`recording-${kind}-explanation`}>
                 {kind === 'single'
                   ? 'This is a mouse visual-cortex neuron recorded in a brain slice. A 3 ms current pulse evokes one spike. The time axis is shared: current is the input, voltage is the response.'
                   : kind === 'compound'
                     ? 'A compound action potential is recorded outside a nerve bundle. Signals from multiple activated axons overlap. It is different from a burst or a complex spike in one neuron.'
                     : 'Scalp electrodes measure voltage differences generated by population activity. EEG is not a count of spikes or a complete readout of the brain. Predicting it requires a model of how cellular currents produce the measured field.'}
-              </EditableCopy>
+              </LessonCopy>
               {kind === 'single' && (
                 <p className="essay-fine">
                   Allen Cell Types · specimen 464212183 · sweep 12. Recorded at
@@ -448,9 +448,9 @@ export function RecordingComparison({ data }: { data: AllenRecording | null }) {
   }, [sweep, model]);
   if (!sweep || !run || !data)
     return (
-      <EditableCopy copyId={`comparison-1-${model}`} className="essay-fine">
+      <LessonCopy copyId={`comparison-1-${model}`} className="essay-fine">
         The comparison appears when the paired recording has loaded.
-      </EditableCopy>
+      </LessonCopy>
     );
   const measured = run.time.map(
     (t) =>
@@ -465,13 +465,13 @@ export function RecordingComparison({ data }: { data: AllenRecording | null }) {
   return (
     <div className="em-experiment em-recording-comparison">
       <div className="em-experiment-heading">
-        <EditableCopy
+        <LessonCopy
           as="span"
           copyId="recording-experiments-label-5"
           className="essay-kicker"
         >
           Experiment 03 · replay a real input
-        </EditableCopy>
+        </LessonCopy>
         <Tabs value={model} onValueChange={(v) => setModel(v as 'lif' | 'hh')}>
           <TabsList>
             <TabsTrigger value="lif">LIF</TabsTrigger>
@@ -479,10 +479,10 @@ export function RecordingComparison({ data }: { data: AllenRecording | null }) {
           </TabsList>
         </Tabs>
       </div>
-      <EditableCopy copyId={`comparison-2-${model}`}>
+      <LessonCopy copyId={`comparison-2-${model}`}>
         Both curves receive the recorded current below. Switch the trial: do the
         same model assumptions still describe what the cell did?
-      </EditableCopy>
+      </LessonCopy>
       <Tabs value={String(trial)} onValueChange={(v) => setTrial(Number(v))}>
         <TabsList>
           {data.sweeps.map((s, i) => (
@@ -534,14 +534,14 @@ export function RecordingComparison({ data }: { data: AllenRecording | null }) {
         </span>
         <span>Within the displayed excerpt</span>
       </div>
-      <EditableCopy
+      <LessonCopy
         copyId={`comparison-3-${model}`}
         className="em-term-explanation"
       >
         {model === 'lif'
           ? 'LIF has no action-potential shape to match. Compare the event times and the voltage between events. Here its threshold is an assumption: a plausible-looking equation can still get the response wrong.'
           : 'This is the classic squid-axon model receiving a mouse neuron’s input. Its channels were not fitted to this cell. A more detailed mechanism does not guarantee a better prediction.'}
-      </EditableCopy>
+      </LessonCopy>
       <details className="essay-method-note">
         <summary>Exactly what is measured, inferred and assumed?</summary>
         <p>
@@ -551,20 +551,20 @@ export function RecordingComparison({ data }: { data: AllenRecording | null }) {
           mV crossings. This is a demonstration comparison, not a fitted-model
           benchmark or a held-out validation score.
         </p>
-        <EditableCopy copyId={`comparison-5-${model}`}>
+        <LessonCopy copyId={`comparison-5-${model}`}>
           LIF: input resistance 223.44 MΩ and time constant 19.08 ms come from
           the cell’s published summary; C ≈ τ/R = 85.4 pF and gL ≈ 4.48 nS are
           inferred passive equivalents. Rest −65.77 mV is the published summary
           value. Threshold −45 mV, reset to rest and 2 ms refractoriness are
           assumed.
-        </EditableCopy>
-        <EditableCopy copyId={`comparison-6-${model}`}>
+        </LessonCopy>
+        <LessonCopy copyId={`comparison-6-${model}`}>
           HH: C = 85.4 pF and an assumed specific capacitance of 1 µF/cm² imply
           an effective area of 8.54 × 10⁻⁵ cm². This converts the recorded pA
           input to current density. Channel densities, reversal potentials and
           6.3°C kinetics are classic squid parameters, not measured mouse
           values. No shared parameter fit is claimed.
-        </EditableCopy>
+        </LessonCopy>
         <p>
           {data.processing} Model step: 0.025 ms; model plots: 0.1 ms. The
           recorded comparison trace uses matching sample times without

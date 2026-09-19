@@ -3,7 +3,6 @@
 'use client';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
-import Link from 'next/link';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { useTheme, themeColor } from '@/lib/theme';
 import {
@@ -707,17 +706,17 @@ export default function NeuronLab() {
   return (
     <div className="learn-page">
       <header className="topbar">
-        <Link className="brand" href="/">
+        <a className="brand" href="/">
           FLY<span>/</span>EM <span className="brand-sub">MODEL NOTEBOOK</span>
-        </Link>
+        </a>
         <nav className="learn-nav" aria-label="Notebook sections">
           <ThemeToggle />
           <a href="#membrane">The neuron</a>
           <a href="#circuits">The circuit</a>
           <a href="#comparison">The evidence</a>
-          <Link href="/explore" className="learn-back">
+          <a href="/explore" className="learn-back">
             <ArrowLeft size={14} /> Observatory
-          </Link>
+          </a>
         </nav>
       </header>
       <main className="learn-main">
@@ -1452,10 +1451,10 @@ export default function NeuronLab() {
             a useful control only when the task, input, readout and fitting
             budget stay matched.
           </p>
-          <Link href="/explore" className="learn-return">
+          <a href="/explore" className="learn-return">
             Return to the connectome and experimental panels{' '}
             <ArrowRight size={17} />
-          </Link>
+          </a>
         </section>
         <footer className="learn-sources">
           <div>

@@ -3,7 +3,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import type { Atlas } from '@/lib/simulation';
-import { EditableCopy, publishedWording } from './copy-editor';
+import { LessonCopy, publishedWording } from './lesson-copy';
 const passages = [
   {
     title: 'What would it take to emulate this?',
@@ -96,12 +96,12 @@ export function NeuronPrologue() {
     >
       <div className="prologue-stage">
         <div className="prologue-topline">
-          <EditableCopy as="span" copyId="prologue-field-note">
+          <LessonCopy as="span" copyId="prologue-field-note">
             FIELD NOTES / 001
-          </EditableCopy>
-          <EditableCopy as="span" copyId="prologue-topic">
+          </LessonCopy>
+          <LessonCopy as="span" copyId="prologue-topic">
             FROM NEURON TO EMULATION
-          </EditableCopy>
+          </LessonCopy>
         </div>
         <div className="prologue-art">
           {cell ? (
@@ -169,9 +169,9 @@ export function NeuronPrologue() {
           )}
           <div className="prologue-art-footer">
             <span>
-              <EditableCopy as="span" copyId="prologue-arbor-label">
+              <LessonCopy as="span" copyId="prologue-arbor-label">
                 E-PG / FLY CONNECTOME
-              </EditableCopy>
+              </LessonCopy>
               <br />
               <small>
                 {cell
@@ -196,25 +196,23 @@ export function NeuronPrologue() {
           </div>
         </div>
         <div className="prologue-copy">
-          <EditableCopy
+          <LessonCopy
             as="span"
             copyId="prologue-chapter-counter"
             className="prologue-count"
           >
             0{stage + 1}
             <small> / 03</small>
-          </EditableCopy>
+          </LessonCopy>
           {passages.map((p, i) => (
             <div key={i} hidden={stage !== i}>
-              <EditableCopy
+              <LessonCopy
                 as={i === 0 ? 'h1' : 'h2'}
                 copyId={`prologue-title-${i}`}
               >
                 {p.title}
-              </EditableCopy>
-              <EditableCopy copyId={`prologue-body-${i}`}>
-                {p.text}
-              </EditableCopy>
+              </LessonCopy>
+              <LessonCopy copyId={`prologue-body-${i}`}>{p.text}</LessonCopy>
             </div>
           ))}
           <div className="prologue-progress" aria-label="Opening chapters">
@@ -248,12 +246,12 @@ export function NeuronPrologue() {
           </a>
         </div>
         <div className="prologue-bottomline">
-          <EditableCopy as="span" copyId="prologue-rotate-hint">
+          <LessonCopy as="span" copyId="prologue-rotate-hint">
             DRAG THE CELL TO ROTATE
-          </EditableCopy>
-          <EditableCopy as="span" copyId="prologue-anatomy-note">
+          </LessonCopy>
+          <LessonCopy as="span" copyId="prologue-anatomy-note">
             ANATOMY ≠ ACTIVITY
-          </EditableCopy>
+          </LessonCopy>
         </div>
       </div>
     </section>

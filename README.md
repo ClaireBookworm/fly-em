@@ -27,6 +27,9 @@ Import this repository into Vercel. `vercel.json` configures the static build in
 `.openai/hosting.json` file are required. The ignored `.openai` settings and Sites
 plugins are used only when that local configuration exists.
 
+Page navigation uses native HTML links because this is a static export, without
+a server for React Server Component navigation or prefetch requests.
+
 ## What is included
 
 - Orbitable, sampled whole-brain anatomy; optional ventral nerve cord context.

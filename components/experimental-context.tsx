@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { ArrowUpRight, BookOpen } from 'lucide-react';
 import {
   Table,
@@ -57,9 +56,9 @@ export function ExperimentalContext({
       <div className="comparison-answer">
         <strong>Can these traces be compared?</strong>
         <p>{protocol.comparison}</p>
-        <Link href="/learn#comparison">
+        <a href="/learn#comparison">
           How to design a valid comparison <ArrowUpRight size={14} />
-        </Link>
+        </a>
       </div>
       <details open className="experimental-details">
         <summary>Reported recording conditions & measurements</summary>
@@ -132,9 +131,9 @@ export function ExperimentalContext({
             : 'Spike-driven synaptic traces decay with an assumed 8 ms time constant; network input is refreshed every 1 ms.'}{' '}
           Synapse counts do not directly measure these electrical weights.
         </p>
-        <Link className="parameter-source" href="/learn">
+        <a className="parameter-source" href="/learn">
           <BookOpen size={14} /> Explore the equations and animated models
-        </Link>
+        </a>
       </details>
     </div>
   );

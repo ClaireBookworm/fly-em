@@ -5,7 +5,6 @@
 'use client';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
-import Link from 'next/link';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { useTheme, themeColor } from '@/lib/theme';
 import {
@@ -423,21 +422,21 @@ export default function Observatory() {
       style={{ '--circuit': meta.color } as React.CSSProperties}
     >
       <header className="topbar">
-        <Link className="brand" href="/">
+        <a className="brand" href="/">
           FLY<span>/</span>EM{' '}
           <span className="brand-sub">CIRCUIT OBSERVATORY</span>
-        </Link>
+        </a>
         <div className="header-right">
           <ThemeToggle />
-          <Link href="/games/garden" className="notebook-link">
+          <a href="/games/garden" className="notebook-link">
             Play with circuits <ArrowUpRight size={15} />
-          </Link>
-          <Link href="/learn" className="notebook-link">
+          </a>
+          <a href="/learn" className="notebook-link">
             How neuron models work <ArrowUpRight size={15} />
-          </Link>
-          <Link href="/embodied" className="notebook-link">
+          </a>
+          <a href="/embodied" className="notebook-link">
             Vision & movement <ArrowUpRight size={15} />
-          </Link>
+          </a>
           <span className="dataset-mark">
             <i />
             MaleCNS v1.0
@@ -634,10 +633,10 @@ export default function Observatory() {
                       neurons
                     </span>
                   </div>
-                  <Link href="/learn" className="model-learn-link">
+                  <a href="/learn" className="model-learn-link">
                     See LIF & Hodgkin–Huxley explained with animations{' '}
                     <ArrowUpRight size={14} />
-                  </Link>
+                  </a>
                   {simError ? (
                     <p className="error-card" role="alert">
                       {simError}

@@ -2,12 +2,11 @@
 /* oxlint-disable react/react-compiler */
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
 import { ArrowDown, ArrowRight, Pause, Play } from 'lucide-react';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
-import { EditableCopy } from './copy-editor';
+import { LessonCopy } from './lesson-copy';
 
 export function StoryHeader({ part }: { part: 'connectome' | 'neuron' }) {
   const progress = useRef<HTMLDivElement>(null);
@@ -32,29 +31,23 @@ export function StoryHeader({ part }: { part: 'connectome' | 'neuron' }) {
   }, []);
   return (
     <header className="essay-header">
-      <Link href="/" className="essay-wordmark">
+      <a href="/" className="essay-wordmark">
         fly<span>/</span>em
-      </Link>
+      </a>
       <nav aria-label="Story navigation">
-        <Link
-          href="/"
-          aria-current={part === 'connectome' ? 'page' : undefined}
-        >
+        <a href="/" aria-current={part === 'connectome' ? 'page' : undefined}>
           Connectome lab
-        </Link>
-        <Link
-          href="/learn"
-          aria-current={part === 'neuron' ? 'page' : undefined}
-        >
+        </a>
+        <a href="/learn" aria-current={part === 'neuron' ? 'page' : undefined}>
           Neuron models
-        </Link>
-        <Link
+        </a>
+        <a
           className="essay-bench-link"
           href={part === 'connectome' ? '/explore' : '/lab'}
         >
           Open workbench ↗
-        </Link>
-        <Link href="/games/garden">Circuit games</Link>
+        </a>
+        <a href="/games/garden">Circuit games</a>
         <ThemeToggle />
       </nav>
       <div className="essay-progress" ref={progress} />
@@ -74,13 +67,13 @@ export function Chapter({
 }) {
   return (
     <div className="essay-copy" id={id}>
-      <EditableCopy as="h2" copyId={`chapter-${number}-title`}>
+      <LessonCopy as="h2" copyId={`chapter-${number}-title`}>
         {title}
-      </EditableCopy>
+      </LessonCopy>
       {paragraphs.map((p, i) => (
-        <EditableCopy copyId={`chapter-${number}-paragraph-${i}`} key={p}>
+        <LessonCopy copyId={`chapter-${number}-paragraph-${i}`} key={p}>
           {p}
-        </EditableCopy>
+        </LessonCopy>
       ))}
     </div>
   );
@@ -112,17 +105,17 @@ export function StoryNext({
 }) {
   return (
     <section className="essay-next">
-      <EditableCopy as="span" copyId="shared-label-1" className="essay-kicker">
+      <LessonCopy as="span" copyId="shared-label-1" className="essay-kicker">
         Keep exploring
-      </EditableCopy>
-      <EditableCopy as="h2" copyId="next-title">
+      </LessonCopy>
+      <LessonCopy as="h2" copyId="next-title">
         {title}
-      </EditableCopy>
-      <EditableCopy copyId="next-text">{text}</EditableCopy>
-      <Link href={href}>
+      </LessonCopy>
+      <LessonCopy copyId="next-text">{text}</LessonCopy>
+      <a href={href}>
         {label}
         <ArrowRight size={22} />
-      </Link>
+      </a>
     </section>
   );
 }
@@ -214,9 +207,9 @@ export function StoryPlayback({
 export function StoryFooter() {
   return (
     <footer className="essay-footer">
-      <Link href="/">fly/em</Link>
+      <a href="/">fly/em</a>
       <p>Fly connectome anatomy and illustrative neuron models.</p>
-      <Link href="/explore#methods">Sources & assumptions ↗</Link>
+      <a href="/explore#methods">Sources & assumptions ↗</a>
     </footer>
   );
 }

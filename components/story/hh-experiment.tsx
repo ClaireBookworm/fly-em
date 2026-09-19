@@ -1,7 +1,6 @@
 'use client';
-import { EditableCopy } from './copy-editor';
+import { LessonCopy } from './lesson-copy';
 import { useMemo, useState } from 'react';
-import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { labDefaults, simulateLab } from '@/lib/neuron-lab';
 import { MembranePatch } from './neuron-graphics';
@@ -70,13 +69,13 @@ export function HHExperiment() {
   return (
     <div className="em-experiment em-hh-guide">
       <div className="em-experiment-heading">
-        <EditableCopy
+        <LessonCopy
           as="span"
           copyId="hh-experiment-label-1"
           className="essay-kicker"
         >
           Experiment 02 · where the spike comes from
-        </EditableCopy>
+        </LessonCopy>
         <Button
           variant="outline"
           onClick={() => update('sodium', sodium === 0 ? 120 : 0)}
@@ -90,13 +89,13 @@ export function HHExperiment() {
         <span> − </span>
         <span className="em-k">ḡK n⁴ (V − EK)</span>
       </div>
-      <EditableCopy copyId="channels-explanation-1">
+      <LessonCopy copyId="channels-explanation-1">
         Instead of inserting a spike at a threshold, HH updates voltage and
         three channel gates. The waveform emerges from their interaction.{' '}
         <strong>
           Choose a moment in the spike to see the current balance change.
         </strong>
-      </EditableCopy>
+      </LessonCopy>
       <div
         className="em-phase-buttons"
         aria-label="Moments in an action potential"
@@ -210,27 +209,27 @@ export function HHExperiment() {
           Reset channels
         </Button>
       </div>
-      <EditableCopy copyId="channels-explanation-3" className="essay-fine">
+      <LessonCopy copyId="channels-explanation-3" className="essay-fine">
         Both teaching cells receive a 5 ms pulse starting at 20 ms. Axes differ
         so LIF’s subthreshold voltage stays readable. Sodium changes only HH;
         LIF contains no sodium channels. Gate values lie between 0 and 1;
         effective Na conductance is ḡNa m³h and K conductance is ḡK n⁴.
-      </EditableCopy>
+      </LessonCopy>
       <details className="essay-method-note">
         <summary>Channel equations, units and limits</summary>
-        <EditableCopy copyId="channels-explanation-4">
+        <LessonCopy copyId="channels-explanation-4">
           Each gate x follows dx/dt = αx(V)(1 − x) − βx(V)x. HH uses C = 1
           µF/cm²; ḡNa = {sodium}, ḡK = 36, gL = 0.3 mS/cm²; ENa = +50, EK = −77,
           EL = −54.4 mV. These are classic squid-axon parameters and 6.3°C gate
           kinetics, not a fit to the mouse recording or a fly neuron.
-        </EditableCopy>
-        <EditableCopy copyId="channels-explanation-5">
+        </LessonCopy>
+        <LessonCopy copyId="channels-explanation-5">
           Both integrate at 0.025 ms; plots sample at 0.25 ms. LIF uses τ = 20
           ms, rest/reset −65 mV, threshold −50 mV and a 2 ms refractory period.
           Identical injected current density does not make the membrane
           parameters physiologically equivalent.
-        </EditableCopy>
-        <EditableCopy copyId="channels-explanation-6">
+        </LessonCopy>
+        <LessonCopy copyId="channels-explanation-6">
           <a
             href="https://doi.org/10.1113/jphysiol.1952.sp004764"
             target="_blank"
@@ -238,8 +237,8 @@ export function HHExperiment() {
           >
             Hodgkin & Huxley (1952) ↗
           </a>{' '}
-          · <Link href="/lab">Inspect all gate equations ↗</Link>
-        </EditableCopy>
+          · <a href="/lab">Inspect all gate equations ↗</a>
+        </LessonCopy>
       </details>
     </div>
   );

@@ -87,6 +87,11 @@ A later round could fit parameters on training sweeps and evaluate held-out swee
 
 ## Visual and wording revision
 
+The temporary wording editor described below has now been retired. The lesson
+renders the published edits from `content/learn-wording.json`, including Markdown
+and removed labels, without loading or applying browser drafts. These notes retain
+the history of how the wording was collected.
+
 The opening now presents a scroll-linked, manually rotatable 3D projection of an actual simplified MaleCNS E-PG skeleton. XYZ geometry is retained; depth affects line color. The opening explicitly separates anatomy from physiological response and then leads to the experimental recordings. Rotation is also available through buttons, and chapter navigation respects reduced-motion preference.
 
 The recording panel includes credited CA1 patch-clamp microscopy from Wikimedia Commons (see `public/images/learn/ATTRIBUTION.md`), distinct from the Allen visual-cortex recording. The electrical schematic remains available in the image disclosure.

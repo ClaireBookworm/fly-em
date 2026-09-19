@@ -1,7 +1,7 @@
 /* The custom drag handle implements the slider keyboard and pointer pattern; numeric entry is also provided. */
 /* oxlint-disable jsx-a11y/prefer-tag-over-role */
 'use client';
-import { EditableCopy } from './copy-editor';
+import { LessonCopy } from './lesson-copy';
 import { useMemo, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -365,11 +365,11 @@ function MembraneCircuit({
           <b>{reset ? 'V held at rest' : `${storage.toFixed(0)} pA`}</b>
         </span>
       </div>
-      <EditableCopy copyId="membrane-explanation-1" className="essay-fine">
+      <LessonCopy copyId="membrane-explanation-1" className="essay-fine">
         The membrane stores separated charge; channels provide a path across it.
         The battery represents the leak reversal potential. This is an
         electrical equivalent, not the cell’s anatomy.
-      </EditableCopy>
+      </LessonCopy>
     </div>
   );
 }
@@ -399,13 +399,13 @@ export function EquationExperiment() {
   return (
     <div className="em-experiment">
       <div className="em-experiment-heading">
-        <EditableCopy
+        <LessonCopy
           as="span"
           copyId="membrane-experiments-label-1"
           className="essay-kicker"
         >
           Experiment 01 · make two inputs count
-        </EditableCopy>
+        </LessonCopy>
         <Button
           variant="outline"
           onClick={() => {
@@ -418,12 +418,12 @@ export function EquationExperiment() {
           Reset
         </Button>
       </div>
-      <EditableCopy copyId="membrane-explanation-2" className="em-challenge">
+      <LessonCopy copyId="membrane-explanation-2" className="em-challenge">
         Two weak inputs can trigger a spike together.{' '}
         <strong>
           How far apart can you move them before that stops working?
         </strong>
-      </EditableCopy>
+      </LessonCopy>
       <div
         className="em-live-equation"
         aria-label="Capacitance times rate of voltage change equals injected current minus leak current"
@@ -477,13 +477,10 @@ export function EquationExperiment() {
           ))
         </span>
       </div>
-      <EditableCopy
-        copyId="membrane-explanation-3"
-        className="em-equation-help"
-      >
+      <LessonCopy copyId="membrane-explanation-3" className="em-equation-help">
         Drag ↔ above a number, type a value, or use arrow keys. I(t) is zero
         between pulses.
-      </EditableCopy>
+      </LessonCopy>
       <p className="em-term-explanation" aria-live="polite">
         {descriptions[focus] ?? descriptions.capacitance}
       </p>
@@ -582,13 +579,13 @@ export function EquationExperiment() {
         onPlaying={clock.setPlaying}
         timeScale={0.1}
       />
-      <EditableCopy copyId="membrane-explanation-5" className="essay-fine">
+      <LessonCopy copyId="membrane-explanation-5" className="essay-fine">
         Scrub to inspect the current balance at one instant. Playback is slowed
         down. At −50 mV, LIF emits an event and resets to −65 mV for 2 ms; the
         balance equation applies outside that reset period. The ticks mark
         events, not biological spike waveforms. These parameters are teaching
         choices.
-      </EditableCopy>
+      </LessonCopy>
     </div>
   );
 }

@@ -2,7 +2,6 @@
 /* Animation is an external clock, not a React-derived value. */
 /* oxlint-disable react/react-compiler, jsx-a11y/prefer-tag-over-role */
 import { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
 import { Pause, Play, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
@@ -19,22 +18,22 @@ import { advanceGameTime, gameSampleIndex } from '@/lib/game-playback';
 export function GameNav({ active }: { active: string }) {
   return (
     <nav className="game-nav" aria-label="Games">
-      <Link href="/">fly/em · lab</Link>
+      <a href="/">fly/em · lab</a>
       <div>
         {[
           ['garden', 'Circuit garden'],
           ['wiring', 'Which wiring?'],
           ['faces', 'Face code'],
         ].map(([id, label]) => (
-          <Link
+          <a
             key={id}
             aria-current={active === id ? 'page' : undefined}
             href={`/games/${id}`}
           >
             {label}
-          </Link>
+          </a>
         ))}
-        <Link href="/embodied">Emulation</Link>
+        <a href="/embodied">Emulation</a>
         <ThemeToggle />
       </div>
     </nav>
